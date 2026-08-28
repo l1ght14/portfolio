@@ -6,7 +6,7 @@ const IDF = {};
 (function () {
   const df = {};
   const N = window.KB.length;
-  window.KB.forEach(c => { new Set(tok(c.s)).forEach(w => df[w] = (df[w] || 0) + 1); });
+  window.KB.forEach(c => { new Set(tok(c.t + " " + c.s)).forEach(w => df[w] = (df[w] || 0) + 1); });
   for (const w in df) IDF[w] = Math.log(1 + N / df[w]);
 })();
 const vec = t => {
@@ -22,12 +22,14 @@ const cos = (a, b) => {
   for (const w in b) nb += b[w] * b[w];
   return na && nb ? d / Math.sqrt(na * nb) : 0;
 };
-const retrieve = q => window.KB.map(c => ({ c, s: cos(vec(q), vec(c.s)) })).sort((x, y) => y.s - x.s).slice(0, 4);
+const retrieve = q => window.KB.map(c => ({ c, s: cos(vec(q), vec(c.t + " " + c.s)) })).sort((x, y) => y.s - x.s).slice(0, 4);
+const ANCHORS = new Set("prakash he his him mira redax trimstack tradxlink tradvisor edxso nextwealth augtech internship intern bca rungta pune rag agent agentic agents llama llamaindex milvus gridfs mongodb fastapi python lidar procurement requisition ocr embeddings embedding hallucination latency portfolio resume cv hire hiring recruiter candidate role roles job work worked works skill skills experience experienced project projects education degree study studied contact email phone linkedin github remote hybrid onsite ability abilities built build building know knows tech stack strength strengths available availability certification certificate company startup".split(" "));
+const onTopic = q => (q.toLowerCase().match(/[a-z0-9]+/g) || []).some(w => ANCHORS.has(w));
 const fallback = q => {
+  if (!tok(q).length) return window.KB.filter(c => c.t === "abilities").slice(0, 3).map(c => c.s).join(" ");
   const r = retrieve(q).filter(x => x.s > 0.05);
   return r.length ? r.slice(0, 3).map(x => x.c.s).join(" ") : REDIRECT;
 };
-const SYS = "You are the portfolio assistant of Prakash Sharma. Answer ONLY from the provided context about him. Keep answers under 120 words, factual and friendly. Never invent facts, metrics or technologies. If the question is not about Prakash Sharma's profile, skills, experience, projects, education or contact details, reply exactly: " + REDIRECT;
 async function llm(q, ctx) {
   const r = await fetch("api/chat", {
     method: "POST",
@@ -54,10 +56,13 @@ async function ask(q) {
   t.innerHTML = "<i></i><i></i><i></i>";
   t.className = "msg bot typing";
   const r = retrieve(q);
-  const ctx = r.map(x => x.c.s).join("\n");
   let out = null;
-  try { out = await llm(q, ctx); } catch (e) { out = null; }
-  if (!out) out = r[0].s > 0.05 ? fallback(q) : REDIRECT;
+  if (onTopic(q)) {
+    try { out = await llm(q, r.map(x => x.c.s).join("\n")); } catch (e) { out = null; }
+    if (!out) out = fallback(q);
+  } else {
+    out = REDIRECT;
+  }
   t.className = "msg bot";
   t.textContent = out;
   log.scrollTop = log.scrollHeight;
