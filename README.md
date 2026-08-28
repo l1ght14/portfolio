@@ -61,8 +61,10 @@ Vercel runs the static files *and* the serverless function, so the LLM path work
    |---|---|---|
    | `GEMINI_API_KEY` | your Gemini key | one of the two |
    | `GROQ_API_KEY` | your Groq key | one of the two |
-   | `GEMINI_MODEL` | `gemini-2.5-flash-lite` | optional |
-   | `GROQ_MODEL` | `llama-3.3-70b-versatile` | optional |
+   | `GEMINI_MODEL` | comma-separated list, defaults to `gemini-2.5-flash-lite,gemini-3-flash,gemini-3.1-flash-lite,gemini-2.0-flash` | optional |
+   | `GROQ_MODEL` | comma-separated list, defaults to `llama-3.3-70b-versatile,llama-3.1-8b-instant` | optional |
+
+   The model variables are **optional**. Each is a fallback chain: if the first model is unavailable on your key or quota tier, the next one is tried automatically, then the other provider, and finally the local retrieval fallback. Leave them blank unless you want to pin a specific model.
 
    Apply to **Production** (and Preview if you want preview deploys to chat too).
 5. **Redeploy:** Deployments -> latest -> **Redeploy** (env vars only apply to new builds).
