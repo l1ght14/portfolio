@@ -7,6 +7,12 @@
 <meta name="description" content="Prakash Sharma builds production AI systems: enterprise RAG, multi-agent workflows, document intelligence and Python/FastAPI microservices. Ask the on-site AI assistant anything about him.">
 <meta property="og:title" content="Prakash Sharma — AI &amp; Data Engineer">
 <meta property="og:description" content="Enterprise RAG, agentic AI and Python microservices. Ask the portfolio AI assistant anything about my work.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230C1E29'/%3E%3Ctext x='16' y='23' font-size='18' font-family='monospace' fill='%23FFFE15' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +21,19 @@
 </head>
 <body id="top">
 <div class="noise" aria-hidden="true"></div>
+
+<div id="boot" class="boot" role="status" aria-label="Loading portfolio">
+  <div class="boot-inner">
+    <p class="boot-line mono">&gt; booting prakash.sharma@portfolio ...</p>
+    <p class="boot-line mono">&gt; initialising glyph renderer<span class="boot-dots"></span></p>
+    <p class="boot-line mono">&gt; loading 74 verified career facts<span class="boot-dots"></span></p>
+    <p class="boot-line mono">&gt; mounting RAG pipeline<span class="boot-dots"></span></p>
+    <p class="boot-line mono boot-ok">&gt; READY<span class="boot-caret"></span></p>
+  </div>
+</div>
+
+<div id="ascii-stage" class="ascii-stage" aria-hidden="true"></div>
+
 
 <div class="statusbar">
   <div class="wrap">
@@ -27,16 +46,17 @@
   <div class="wrap">
     <a class="logo" href="#top">prakash.sharma<span>@ai:~$</span></a>
     <nav aria-label="Main">
-      <a href="#work">work</a><a href="#projects">projects</a><a href="#capabilities">capabilities</a>
+      <a href="#work">work</a><a href="#architecture">architecture</a><a href="#projects">projects</a><a href="#capabilities">capabilities</a>
       <a href="#stack">stack</a><a href="#experience">experience</a><a href="#about">about</a><a href="#faq">faq</a>
     </nav>
     <a class="nav-cta" href="#ask">ask the bot</a>
   </div>
 </header>
 <main>
+<div id="hero-stage" class="hero-stage">
 <section class="hero">
   <div class="wrap">
-    <div>
+    <div class="hero-copy">
       <p class="tag">// ai &amp; data engineer — enterprise ai systems</p>
       <h1>Prakash<br><span class="hl">Sharma</span></h1>
       <p class="role">&gt; <span id="typewriter"></span><span class="caret" aria-hidden="true"></span></p>
@@ -54,9 +74,12 @@
     </div>
     <div class="chat" id="ask" aria-label="Ask the AI assistant about Prakash">
       <div class="chat-head">
-        <span class="cd r"></span><span class="cd y"></span><span class="cd g"></span>
+        <pre class="chat-face" id="chatFace" aria-hidden="true">┌──────┐
+│ ●  ● │
+│      │
+└──────┘</pre>
         <span class="chat-title mono">prakash@portfolio: ~/ask-me-anything</span>
-        <span class="chat-badge">rag</span>
+        <span class="chat-badge" id="chatState">idle</span>
       </div>
       <div class="chat-log" id="chatLog" aria-live="polite"></div>
       <div class="chips" id="chips"></div>
@@ -71,6 +94,8 @@
     </div>
   </div>
 </section>
+</div>
+
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
     <span>RAG</span><span>LlamaIndex</span><span>Multi-Agent Workflows</span><span>Milvus</span><span>FastAPI</span><span>MongoDB</span><span>GridFS</span><span>Prompt Engineering</span><span>Document AI</span><span>OCR Pipelines</span><span>Playwright</span><span>scikit-learn</span><span>Retrieval Security</span><span>Tool Calling</span>
@@ -81,10 +106,10 @@
 <section class="stats">
   <div class="wrap">
     <div class="stats-grid">
-      <div class="stat rv"><em>Optimization</em><b>30s → &lt;10s</b><span>RAG response latency, cut at Tradxlink</span></div>
-      <div class="stat rv rv-2"><em>Efficiency</em><b>~50%</b><span>LLM token cost reduction through response-generation redesign</span></div>
-      <div class="stat rv rv-3"><em>Automation</em><b>~80%</b><span>manual effort removed with Python + Selenium + Sheets automation</span></div>
-      <div class="stat rv rv-4"><em>Validation</em><b>13</b><span>users on Mira, a live AI receptionist I built and iterate on</span></div>
+      <div class="stat rv"><em>Optimization</em><b data-from="0" data-to="10" data-prefix="30s → &lt;">30s → &lt;10s</b><span>RAG response latency, cut at Tradxlink</span></div>
+      <div class="stat rv rv-2"><em>Efficiency</em><b data-from="0" data-to="50" data-tilde="1" data-unit="pct">~50%</b><span>LLM token cost reduction through response-generation redesign</span></div>
+      <div class="stat rv rv-3"><em>Automation</em><b data-from="0" data-to="80" data-tilde="1" data-unit="pct">~80%</b><span>manual effort removed with Python + Selenium + Sheets automation</span></div>
+      <div class="stat rv rv-4"><em>Validation</em><b data-from="0" data-to="13">13</b><span>users on Mira, a live AI receptionist I built and iterate on</span></div>
     </div>
   </div>
 </section>
@@ -143,10 +168,79 @@
     </article>
   </div>
 </section>
+<section class="block wrap" id="architecture">
+  <div class="sec-head rv">
+    <div>
+      <p class="sec-tag mono">// 02 — architecture</p>
+      <h2>How the systems <em>actually fit together</em></h2>
+    </div>
+    <p class="sec-lede">Redrawn from my own documentation — generic, no proprietary detail. These are the three pipelines I spent most of my time on.</p>
+  </div>
+  <div class="diagrams">
+    <figure class="diagram rv">
+      <figcaption class="mono">fig. 01 — enterprise RAG with tenant-isolated retrieval</figcaption>
+        <svg viewBox="0 0 640 200" role="img" aria-label="RAG pipeline: documents are parsed, chunked with metadata, embedded, stored in Milvus behind an access gate, then retrieved, grounded and answered.">
+        <defs><marker id="ar1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0l7 3.5L0 7z" fill="var(--sky)"/></marker></defs>
+        <g class="dg-flow">
+          <rect x="6" y="60" width="86" height="52" rx="9"/><text x="49" y="82">PDF / JSON</text><text x="49" y="99" class="dg-sub">images</text>
+          <rect x="122" y="60" width="86" height="52" rx="9"/><text x="165" y="82">Parse + OCR</text><text x="165" y="99" class="dg-sub">PyMuPDF · Azure</text>
+          <rect x="238" y="60" width="86" height="52" rx="9"/><text x="281" y="82">Chunk + meta</text><text x="281" y="99" class="dg-sub">entity, owner</text>
+          <rect x="354" y="60" width="86" height="52" rx="9"/><text x="397" y="82">Embed</text><text x="397" y="99" class="dg-sub">vectors</text>
+          <path d="M92 86h30M208 86h30M324 86h30M440 86h26" marker-end="url(#ar1)"/>
+          <rect x="470" y="46" width="106" height="80" rx="10" class="dg-gate"/><text x="523" y="72">Milvus</text><text x="523" y="90" class="dg-sub">public / private</text><text x="523" y="107" class="dg-sub">filtered vectors</text>
+          <rect x="356" y="146" width="220" height="42" rx="9" class="dg-accent"/><text x="466" y="164">access gate</text><text x="466" y="180" class="dg-sub">enforced before retrieval</text>
+          <path d="M466 146v-22" marker-end="url(#ar1)"/>
+          <rect x="6" y="146" width="150" height="42" rx="9"/><text x="81" y="171">grounded answer</text>
+          <path d="M356 167H280" marker-end="url(#ar1)"/>
+          <rect x="142" y="146" width="128" height="42" rx="9"/><text x="206" y="164">retrieval +</text><text x="206" y="180" class="dg-sub">entity traversal</text>
+          <path d="M142 167H160" marker-end="url(#ar1)"/>
+        </g>
+      </svg>
+    </figure>
+    <figure class="diagram rv rv-2">
+      <figcaption class="mono">fig. 02 — procurement agent with bounded sub-agents</figcaption>
+      <svg viewBox="0 0 640 200" role="img" aria-label="Agent workflow: a guard pre-check feeds an orchestrated workflow which dispatches to public, private and discovery sub-agents, then a post-check validates the response.">
+        <g class="dg-flow">
+          <rect x="6" y="70" width="82" height="48" rx="9"/><text x="47" y="90">user</text><text x="47" y="107" class="dg-sub">chat / UI</text>
+          <rect x="118" y="70" width="82" height="48" rx="9"/><text x="159" y="90">pre-guard</text><text x="159" y="107" class="dg-sub">prompt safety</text>
+          <rect x="230" y="58" width="104" height="72" rx="10" class="dg-accent"/><text x="282" y="82">workflow</text><text x="282" y="99" class="dg-sub">entry / exit</text><text x="282" y="114" class="dg-sub">criteria</text>
+          <rect x="374" y="10" width="112" height="44" rx="9"/><text x="430" y="29">public agent</text><text x="430" y="45" class="dg-sub">products, certs</text>
+          <rect x="374" y="72" width="112" height="44" rx="9"/><text x="430" y="91">private agent</text><text x="430" y="107" class="dg-sub">member-scoped</text>
+          <rect x="374" y="134" width="112" height="44" rx="9"/><text x="430" y="153">discovery agent</text><text x="430" y="169" class="dg-sub">search suppliers</text>
+          <path d="M88 94h30M200 94h30" marker-end="url(#ar1)"/>
+          <path d="M334 82l38-48M334 94h38M334 106l38 48" marker-end="url(#ar1)"/>
+          <rect x="516" y="72" width="118" height="44" rx="9"/><text x="575" y="91">post-guard</text><text x="575" y="107" class="dg-sub">leakage check</text>
+          <path d="M486 32l28 40M486 94h28M486 156l28-40" marker-end="url(#ar1)"/>
+          <rect x="516" y="10" width="118" height="44" rx="9"/><text x="575" y="29">tools + APIs</text><text x="575" y="45" class="dg-sub">live platform data</text>
+          <path d="M575 54v18" marker-end="url(#ar1)"/>
+        </g>
+      </svg>
+    </figure>
+    <figure class="diagram rv">
+      <figcaption class="mono">fig. 03 — document routing by content type</figcaption>
+      <svg viewBox="0 0 640 170" role="img" aria-label="Documents are routed by type: text PDFs to a text extractor and scans to OCR, both feeding structured JSON extraction.">
+        <g class="dg-flow">
+          <rect x="6" y="60" width="86" height="50" rx="9"/><text x="49" y="80">document</text><text x="49" y="97" class="dg-sub">inbound</text>
+          <path d="M92 85h34" marker-end="url(#ar1)"/>
+          <rect x="130" y="60" width="92" height="50" rx="9" class="dg-accent"/><text x="176" y="80">classify</text><text x="176" y="97" class="dg-sub">text vs scan</text>
+          <path d="M222 78l40-42M222 85h40M222 92l40 42" marker-end="url(#ar1)"/>
+          <rect x="266" y="12" width="128" height="44" rx="9"/><text x="330" y="31">text PDF</text><text x="330" y="47" class="dg-sub">PyMuPDF4LLM</text>
+          <rect x="266" y="64" width="128" height="44" rx="9"/><text x="330" y="83">scanned / image</text><text x="330" y="99" class="dg-sub">Azure OCR</text>
+          <rect x="266" y="116" width="128" height="44" rx="9"/><text x="330" y="135">large PDF</text><text x="330" y="151" class="dg-sub">GridFS + rebuild</text>
+          <path d="M394 34l40 46M394 86h40M394 138l40-58" marker-end="url(#ar1)"/>
+          <rect x="438" y="58" width="112" height="50" rx="9"/><text x="494" y="78">LLM extract</text><text x="494" y="95" class="dg-sub">snake_case JSON</text>
+          <path d="M550 83h34" marker-end="url(#ar1)"/>
+          <rect x="588" y="58" width="46" height="50" rx="9" class="dg-accent"/><text x="611" y="88">DB</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
 <section class="block wrap" id="projects">
   <div class="sec-head rv">
     <div>
-      <p class="sec-tag mono">// 02 — products &amp; projects</p>
+      <p class="sec-tag mono">// 03 — products &amp; projects</p>
       <h2>Things I built outside my job</h2>
     </div>
     <p class="sec-lede">I identify real problems, build the product, put it in front of users and iterate. Statuses are honest — live, in progress, or in development.</p>
@@ -212,7 +306,7 @@
 <section class="block wrap" id="capabilities">
   <div class="sec-head rv">
     <div>
-      <p class="sec-tag mono">// 03 — capabilities</p>
+      <p class="sec-tag mono">// 04 — capabilities</p>
       <h2>What I can <em>own end to end</em></h2>
     </div>
     <p class="sec-lede">Not just prompts — full pipelines: ingestion, retrieval, orchestration, storage, APIs and the guardrails that keep them trustworthy.</p>
@@ -242,7 +336,7 @@
 <section class="block wrap" id="stack">
   <div class="sec-head rv">
     <div>
-      <p class="sec-tag mono">// 04 — stack</p>
+      <p class="sec-tag mono">// 05 — stack</p>
       <h2>Tools I use in <em>production</em></h2>
     </div>
     <p class="sec-lede">Every item below is traceable to work I actually did. I label the evidence level rather than padding a list.</p>
@@ -260,7 +354,7 @@
 <section class="block wrap" id="experience">
   <div class="sec-head rv">
     <div>
-      <p class="sec-tag mono">// 05 — experience</p>
+      <p class="sec-tag mono">// 06 — experience</p>
       <h2>Where I have <em>worked</em></h2>
     </div>
     <p class="sec-lede">A startup AI engineer on production systems, preceded by hands-on data and AI work.</p>
@@ -298,7 +392,7 @@
 <section class="block wrap" id="about">
   <div class="sec-head rv">
     <div>
-      <p class="sec-tag mono">// 06 — about</p>
+      <p class="sec-tag mono">// 07 — about</p>
       <h2>The person behind the <em>systems</em></h2>
     </div>
   </div>
@@ -324,7 +418,7 @@
 <section class="block wrap" id="faq">
   <div class="sec-head rv">
     <div>
-      <p class="sec-tag mono">// 07 — questions</p>
+      <p class="sec-tag mono">// 08 — questions</p>
       <h2>What recruiters ask <em>first</em></h2>
     </div>
     <p class="sec-lede">Or skip this and ask the assistant in the top-right — it answers from the same verified facts.</p>
@@ -390,6 +484,7 @@
   </div>
 </footer>
 <script src="data.js"></script>
+<script src="ascii.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

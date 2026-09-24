@@ -55,6 +55,7 @@ async function ask(q) {
   const t = add("bot", "");
   t.innerHTML = "<i></i><i></i><i></i>";
   t.className = "msg bot typing";
+  setFace("think");
   const r = retrieve(q);
   let out = null;
   if (onTopic(q)) {
@@ -63,9 +64,11 @@ async function ask(q) {
   } else {
     out = REDIRECT;
   }
+  setFace(out === REDIRECT ? "refuse" : "speak");
   t.className = "msg bot";
   t.textContent = out;
   log.scrollTop = log.scrollHeight;
+  setTimeout(() => setFace("idle"), 2200);
 }
 form.addEventListener("submit", e => {
   e.preventDefault();
@@ -81,7 +84,29 @@ form.addEventListener("submit", e => {
   b.addEventListener("click", () => ask(c));
   $("#chips").appendChild(b);
 });
+const FACES = {
+  idle: "┌──────┐\n│ ●  ● │\n│      │\n└──────┘",
+  blink: "┌──────┐\n│ ▬  ▬ │\n│      │\n└──────┘",
+  think: "┌──────┐\n│ ◕  ◑ │\n│   ▪  │\n└──────┘",
+  speak: "┌──────┐\n│ ●  ● │\n│   ▄  │\n└──────┘",
+  refuse: "┌──────┐\n│ ╳  ╳ │\n│   ─  │\n└──────┘"
+};
+const faceEl = document.getElementById("chatFace");
+const badgeEl = document.getElementById("chatState");
+function setFace(kind) {
+  if (!faceEl || !FACES[kind]) return;
+  faceEl.textContent = FACES[kind];
+  faceEl.className = "chat-face" + (kind === "think" ? " think" : kind === "speak" ? " speak" : kind === "refuse" ? " refuse" : "");
+  if (kind === "think" || kind === "speak") {
+    faceEl.classList.add("blink");
+    setTimeout(() => faceEl && faceEl.classList.remove("blink"), 340);
+  }
+  if (badgeEl) badgeEl.textContent = kind;
+  if (window.__asciiAct) window.__asciiAct(kind === "think" || kind === "speak" ? "thinking" : "coding");
+}
+setInterval(() => { if (badgeEl && badgeEl.textContent === "idle") setFace(Math.random() < 0.5 ? "idle" : "blink"); }, 3400);
 add("bot", "Hey! I'm Prakash's AI twin - a small RAG bot grounded on his career docs. Ask me about his experience, skills, projects or how to reach him.");
+setFace("idle");
 const ROLES = ["AI Engineer", "GenAI Engineer", "RAG Specialist", "Agentic AI Developer", "Python Developer"];
 const tw = $("#typewriter");
 if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -113,3 +138,32 @@ if (sections.length && "IntersectionObserver" in window) {
 }
 const kbCount = document.getElementById("kbcount");
 if (kbCount) kbCount.textContent = "grounded on " + window.KB.length + " verified career facts";
+const statEls = document.querySelectorAll(".stat b[data-from]");
+const statFmt = (el, v) => {
+  const tilde = el.dataset.tilde === "1";
+  const pre = el.dataset.prefix || "";
+  if (el.dataset.unit === "pct") return (tilde ? "~" : "") + Math.round(v) + "%";
+  if (pre) return pre + Math.round(v) + "s";
+  return String(Math.round(v));
+};
+let statDone = false;
+const statIO = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (!e.isIntersecting || statDone) return;
+    statDone = true;
+    statIO.disconnect();
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const dur = 1200, t0 = performance.now();
+    const step = now => {
+      const p = Math.min(1, (now - t0) / dur);
+      const ease = 1 - Math.pow(1 - p, 3);
+      statEls.forEach(el => {
+        const from = parseFloat(el.dataset.from), to = parseFloat(el.dataset.to);
+        el.textContent = statFmt(el, from + (to - from) * ease);
+      });
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}, { threshold: 0.35 });
+if (statEls.length) statIO.observe(statEls[0].closest(".stats-grid"));
