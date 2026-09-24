@@ -68,5 +68,10 @@
 {t:"narrative",s:"His strongest technical areas are enterprise RAG, retrieval security, latency and cost optimization, document intelligence, agentic workflows, and Python and FastAPI backend engineering."},
 {t:"narrative",s:"He does not hold formal Product Manager employment; his product experience comes from building and iterating his own AI products and AI workflow features."},
 {t:"contact",s:"Contact Prakash by email at prakash.sharma.1462003@gmail.com or by phone at +91 8349353477. Email is the fastest way to reach him."},
-{t:"contact",s:"You can also reach Prakash on LinkedIn at linkedin.com/in/prakash-sharma-ps and on GitHub at github.com/l1ght14. He is based in Pune, India and is open to remote, hybrid or Pune onsite roles."}
+{t:"contact",s:"You can also reach Prakash on LinkedIn at linkedin.com/in/prakash-sharma-ps and on GitHub at github.com/l1ght14. He is based in Pune, India and is open to remote, hybrid or Pune onsite roles."},
+{t:"abilities",s:"Recruiters value him for production RAG depth including retrieval security, latency and grounding, hands-on agentic workflow design, document intelligence, and Python and FastAPI backend engineering, plus independent products shipped with real users."},
+{t:"identity",s:"He is actively open to new roles and fits teams that need an AI engineer able to own retrieval and agent systems end to end rather than only prototype prompts."},
+{t:"abilities",s:"Why teams hire him: he owns production RAG, agentic workflows and document intelligence end to end, delivers measurable outcomes such as 30+ seconds to under 10 seconds latency and roughly 50% cost reduction, and ships independent products with real users."},
+{t:"identity",s:"Where he works: Tradxlink, as an AI & Data Engineer since September 2025, building production RAG and agentic procurement systems for a procurement and trade platform."}
+
 ];

@@ -4,4 +4,5 @@
 .vercel
 .netlify
 smoke.png
+shot-*.png
 .DS_Store

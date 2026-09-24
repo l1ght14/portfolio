@@ -73,7 +73,7 @@ form.addEventListener("submit", e => {
   input.value = "";
   ask(q);
 });
-["What has he built with RAG?", "Tell me about Mira", "His experience at Tradxlink?", "Top skills?", "How do I contact him?"].forEach(c => {
+["What has he built with RAG?", "Tell me about Mira", "Why should I hire him?", "What are his skills?", "What can he do?", "How do I contact him?"].forEach(c => {
   const b = document.createElement("button");
   b.type = "button";
   b.className = "chip";
@@ -100,3 +100,16 @@ if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
 }
 const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add("on")), { threshold: .12 });
 document.querySelectorAll(".rv").forEach(el => io.observe(el));
+const navLinks = Array.from(document.querySelectorAll(".nav nav a"));
+const sections = navLinks.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+if (sections.length && "IntersectionObserver" in window) {
+  const spy = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (!e.isIntersecting) return;
+      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  sections.forEach(s => spy.observe(s));
+}
+const kbCount = document.getElementById("kbcount");
+if (kbCount) kbCount.textContent = "grounded on " + window.KB.length + " verified career facts";

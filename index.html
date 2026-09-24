@@ -3,150 +3,392 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prakash Sharma — AI/ML & Agentic AI Developer</title>
-<meta name="description" content="Prakash Sharma builds production AI systems: enterprise RAG, multi-agent workflows and Python/FastAPI microservices. Ask his AI twin anything about him.">
+<title>Prakash Sharma — AI &amp; Data Engineer | RAG, Agentic AI, Python</title>
+<meta name="description" content="Prakash Sharma builds production AI systems: enterprise RAG, multi-agent workflows, document intelligence and Python/FastAPI microservices. Ask the on-site AI assistant anything about him.">
+<meta property="og:title" content="Prakash Sharma — AI &amp; Data Engineer">
+<meta property="og:description" content="Enterprise RAG, agentic AI and Python microservices. Ask the portfolio AI assistant anything about my work.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230C1E29'/%3E%3Ctext x='16' y='23' font-size='18' font-family='monospace' fill='%23FFFE15' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body id="top">
 <div class="noise" aria-hidden="true"></div>
-<header class="nav">
-  <a class="logo" href="#top">prakash.sharma<span>@ai:~$</span></a>
-  <nav aria-label="Main">
-    <a href="#ask">ask</a><a href="#experience">experience</a><a href="#projects">projects</a><a href="#skills">skills</a><a href="#contact">contact</a>
-  </nav>
-</header>
-<main id="top">
-<section class="hero">
-  <div>
-    <p class="tag mono">// ai engineer portfolio — open to work</p>
-    <h1>Prakash<br><span class="hl">Sharma</span></h1>
-    <p class="role mono">&gt; <span id="typewriter"></span><span class="caret" aria-hidden="true"></span></p>
-    <p class="lede">I build production AI systems — enterprise RAG, multi-agent workflows and Python/FastAPI microservices. Currently AI &amp; Data Engineer at Tradxlink.</p>
-    <div class="hero-cta">
-      <a class="btn btn-solid" href="#ask">Ask my AI twin</a>
-      <a class="btn" href="#contact">Contact me</a>
-    </div>
-    <p class="status mono"><span class="dot" aria-hidden="true"></span>Open to AI / GenAI / RAG roles · Remote · Pune</p>
-  </div>
-  <div class="chat" id="ask" aria-label="Ask anything about Prakash">
-    <div class="chat-head">
-      <span class="cd r"></span><span class="cd y"></span><span class="cd g"></span>
-      <span class="chat-title mono">prakash@portfolio: ~/ask-me-anything</span>
-    </div>
-    <div class="chat-log" id="chatLog" aria-live="polite"></div>
-    <div class="chips" id="chips"></div>
-    <form class="chat-input" id="chatForm">
-      <label class="mono" for="chatText">you@recruiter:~$</label>
-      <input id="chatText" autocomplete="off" placeholder="Ask anything about Prakash…" aria-label="Your question">
-      <button class="send" type="submit" aria-label="Send question">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
-      </button>
-    </form>
-    <p class="chat-note mono">rag over prakash's career knowledge base · answers about him only</p>
-  </div>
-</section>
-<div class="metrics rv">
-  <div class="metrics-grid">
-    <div class="metric"><b>30s → &lt;10s</b><span>RAG response latency cut at Tradxlink</span></div>
-    <div class="metric"><b>~50%</b><span>LLM token cost reduction via generation redesign</span></div>
-    <div class="metric"><b>~80%</b><span>manual effort cut with Python automation</span></div>
-    <div class="metric"><b>13</b><span>users on Mira, a live AI receptionist product</span></div>
+
+<div class="statusbar">
+  <div class="wrap">
+    <div class="sb-left"><span class="sb-dot" aria-hidden="true"></span><span>OPEN TO WORK — <b>AI / GENAI / RAG ROLES</b></span></div>
+    <div class="sb-right"><span>REMOTE · HYBRID · PUNE</span><a href="resume.pdf" target="_blank" rel="noopener">DOWNLOAD CV ↓</a></div>
   </div>
 </div>
-<section class="block rv" id="experience">
-  <p class="sec-tag mono">// 01 — experience</p>
-  <h2>Where I've <em>shipped</em></h2>
-  <div class="job">
-    <h3>AI &amp; Data Engineer — Tradxlink</h3>
-    <p class="meta">SEP 2025 — PRESENT · REMOTE</p>
-    <ul>
-      <li><b>Multi-agent procurement systems:</b> production agents on LlamaIndex workflows with public/private/discovery sub-agents, API tool calling and agent-to-UI popups.</li>
-      <li><b>Enterprise RAG (Tradvisor):</b> ingestion into Milvus with metadata filtering, public/private context isolation and prompt engineering to cut hallucinations.</li>
-      <li><b>Retrieval security:</b> enforced user-context access controls before vector retrieval, stopping unauthorized cross-user data exposure.</li>
-      <li><b>Latency &amp; cost:</b> cut RAG responses from 30+ s to under 10 s by replacing tree summarization with compact generation; ~50% token cost reduction.</li>
-      <li><b>FastAPI microservices:</b> voyage-delay prediction, vessel reliability scoring and automated document feature extraction.</li>
-      <li><b>Large-document reliability:</b> redesigned query-engine persistence around rebuildable GridFS references, fixing 300-page PDF index failures.</li>
-      <li><b>Document AI:</b> PyMuPDF4LLM + Azure OCR pipeline turning multi-page trade PDFs into structured JSON.</li>
-      <li><b>Data pipelines:</b> DGFT/RBI/CBIC government notification crawlers bridged into the RAG platform via an advanced query API.</li>
-    </ul>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">prakash.sharma<span>@ai:~$</span></a>
+    <nav aria-label="Main">
+      <a href="#work">work</a><a href="#projects">projects</a><a href="#capabilities">capabilities</a>
+      <a href="#stack">stack</a><a href="#experience">experience</a><a href="#about">about</a><a href="#faq">faq</a>
+    </nav>
+    <a class="nav-cta" href="#ask">ask the bot</a>
   </div>
-  <div class="job">
-    <h3>Process Executive Intern (Data) — Augtech NextWealth</h3>
-    <p class="meta">JUN 2025 — SEP 2025 · ON-SITE</p>
-    <ul><li>Annotated LiDAR data for autonomous-vehicle object detection and scene understanding, sustaining 95–97% quality against QA benchmarks.</li></ul>
-  </div>
-  <div class="job">
-    <h3>Operations Intern — Edxso</h3>
-    <p class="meta">APR 2025 — JUN 2025 · REMOTE</p>
-    <ul><li>Automated web data extraction with Python, Selenium and the Google Sheets API, cutting manual collection effort by ~80%.</li></ul>
+</header>
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="tag">// ai &amp; data engineer — enterprise ai systems</p>
+      <h1>Prakash<br><span class="hl">Sharma</span></h1>
+      <p class="role">&gt; <span id="typewriter"></span><span class="caret" aria-hidden="true"></span></p>
+      <p class="lede">I build production AI systems — enterprise RAG, multi-agent workflows, document intelligence and Python/FastAPI microservices. Currently AI &amp; Data Engineer at Tradxlink, where platform users query their procurement data conversationally.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#ask">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-10 10c0 5.5 4.5 10 10 10s10-4.5 10-10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zM8 11h8v2H8z"/></svg>
+          Ask my AI twin
+        </a>
+        <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV</a>
+        <a class="btn" href="#work">See my work</a>
+      </div>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Open to AI Engineer · GenAI · RAG · Python roles</p>
+      <p class="hero-hint"><kbd>⏎</kbd> the assistant answers only from my career documents — nothing else</p>
+    </div>
+    <div class="chat" id="ask" aria-label="Ask the AI assistant about Prakash">
+      <div class="chat-head">
+        <span class="cd r"></span><span class="cd y"></span><span class="cd g"></span>
+        <span class="chat-title mono">prakash@portfolio: ~/ask-me-anything</span>
+        <span class="chat-badge">rag</span>
+      </div>
+      <div class="chat-log" id="chatLog" aria-live="polite"></div>
+      <div class="chips" id="chips"></div>
+      <form class="chat-input" id="chatForm">
+        <label class="mono" for="chatText">you@recruiter:~$</label>
+        <input id="chatText" autocomplete="off" placeholder="Ask anything about Prakash…" aria-label="Your question">
+        <button class="send" type="submit" aria-label="Send question">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+        </button>
+      </form>
+      <p class="chat-note mono"><span id="kbcount">grounded on my career facts</span><span>answers about him only</span></p>
+    </div>
   </div>
 </section>
-<section class="block rv" id="projects">
-  <p class="sec-tag mono">// 02 — projects</p>
-  <h2>Things I've <em>built</em></h2>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>RAG</span><span>LlamaIndex</span><span>Multi-Agent Workflows</span><span>Milvus</span><span>FastAPI</span><span>MongoDB</span><span>GridFS</span><span>Prompt Engineering</span><span>Document AI</span><span>OCR Pipelines</span><span>Playwright</span><span>scikit-learn</span><span>Retrieval Security</span><span>Tool Calling</span>
+    <span>RAG</span><span>LlamaIndex</span><span>Multi-Agent Workflows</span><span>Milvus</span><span>FastAPI</span><span>MongoDB</span><span>GridFS</span><span>Prompt Engineering</span><span>Document AI</span><span>OCR Pipelines</span><span>Playwright</span><span>scikit-learn</span><span>Retrieval Security</span><span>Tool Calling</span>
+  </div>
+</div>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat rv"><em>Optimization</em><b>30s → &lt;10s</b><span>RAG response latency, cut at Tradxlink</span></div>
+      <div class="stat rv rv-2"><em>Efficiency</em><b>~50%</b><span>LLM token cost reduction through response-generation redesign</span></div>
+      <div class="stat rv rv-3"><em>Automation</em><b>~80%</b><span>manual effort removed with Python + Selenium + Sheets automation</span></div>
+      <div class="stat rv rv-4"><em>Validation</em><b>13</b><span>users on Mira, a live AI receptionist I built and iterate on</span></div>
+    </div>
+  </div>
+</section>
+<section class="block wrap" id="work">
+  <div class="sec-head rv">
+    <div>
+      <p class="sec-tag mono">// 01 — selected work</p>
+      <h2>Production problems I <em>diagnosed and fixed</em></h2>
+    </div>
+    <p class="sec-lede">Real engineering stories from my current role: what broke, what I changed, and what it improved. Each one is a system I worked on directly.</p>
+  </div>
+  <div class="cases">
+    <article class="case rv">
+      <p class="meta mono">Tradxlink · Tradvisor</p>
+      <h3>Retrieval security in a multi-tenant RAG system</h3>
+      <dl>
+        <dt>Problem</dt>
+        <dd>Public and private platform data shared one Milvus layer, and visibility paths were not enforced before retrieval — so a query could reach another user's private data.</dd>
+        <dt>What I did</dt>
+        <dd>Enforced member-scoped access controls in the query engine before vector retrieval, tightened path visibility, and moved the restriction into the retrieval layer instead of relying on the model not to disclose it.</dd>
+      </dl>
+      <p class="result">→ Unauthorized cross-user data no longer retrievable through the query path.</p>
+    </article>
+    <article class="case rv rv-2">
+      <p class="meta mono">Tradxlink · Tradvisor</p>
+      <h3>Cutting RAG latency from 30+ seconds to under 10</h3>
+      <dl>
+        <dt>Problem</dt>
+        <dd>Response generation used an older model with a tree-summarizer flow that triggered several model calls per answer, inflating latency and token spend.</dd>
+        <dt>What I did</dt>
+        <dd>Upgraded the generation model, replaced tree summarization with a compact single-pass strategy, removed redundant API round-trips, and tuned the retrieval/response flow.</dd>
+      </dl>
+      <p class="result">→ Under 10 s responses and roughly 50% lower AI cost.</p>
+    </article>
+    <article class="case rv">
+      <p class="meta mono">Tradxlink · document AI</p>
+      <h3>Making 300-page documents work</h3>
+      <dl>
+        <dt>Problem</dt>
+        <dd>Very large PDFs produced enormous serialized query-engine and document-index objects that could not be stored safely in MongoDB, breaking ingestion and retrieval.</dd>
+        <dt>What I did</dt>
+        <dd>Changed the persistence model: large payloads moved into GridFS, MongoDB kept only references, and the runtime index/query objects were reconstructed on demand instead of stored inline.</dd>
+      </dl>
+      <p class="result">→ Large documents became supportable without oversized-string failures.</p>
+    </article>
+    <article class="case rv rv-2">
+      <p class="meta mono">Tradxlink · data pipelines</p>
+      <h3>From government crawlers to a queryable AI system</h3>
+      <dl>
+        <dt>Problem</dt>
+        <dd>DGFT and RBI notification pages did not match the crawler's field mappings, so enrichment received wrong metadata. CBIC could not be scraped directly at all.</dd>
+        <dt>What I did</dt>
+        <dd>Corrected the crawler mappings, improved LLM enrichment and tax parsing, routed CBIC through a controlled metadata source, then bridged every notification into the RAG platform through its attachment and advanced-query APIs.</dd>
+      </dl>
+      <p class="result">→ Trade notifications became structured, enriched and queryable conversationally.</p>
+    </article>
+  </div>
+</section>
+<section class="block wrap" id="projects">
+  <div class="sec-head rv">
+    <div>
+      <p class="sec-tag mono">// 02 — products &amp; projects</p>
+      <h2>Things I built outside my job</h2>
+    </div>
+    <p class="sec-lede">I identify real problems, build the product, put it in front of users and iterate. Statuses are honest — live, in progress, or in development.</p>
+  </div>
   <div class="bento">
-    <div class="card c4">
-      <span class="badge live">live · beta</span>
-      <h3>Mira — AI Receptionist</h3>
-      <p>Conversational booking receptionist for salons, barber shops and spas: appointment booking, rescheduling, pricing, offers and worker info over Telegram, with WhatsApp planned. ~13 users and iterating on real feedback.</p>
-      <p class="stack">PYTHON · LLMS · FASTAPI · TELEGRAM API</p>
-      <p class="stack"><a class="demo" href="https://mira.voxlabs.site/" target="_blank" rel="noopener">demo → mira.voxlabs.site</a></p>
-    </div>
-    <div class="card c2">
-      <span class="badge wip">in progress</span>
-      <h3>Redax</h3>
-      <p>AI redaction security auditor: scans redacted PDFs with OCR + LLMs to find residual PII and secret leaks, then generates risk reports.</p>
-      <p class="stack">PYTHON · OCR · LLMS</p>
-    </div>
-    <div class="card c2">
-      <span class="badge dev">in development</span>
-      <h3>TrimStack</h3>
-      <p>AI subscription auditor for SMBs: connects to Gmail/Outlook, spots unwanted subscriptions and produces cost-waste reports.</p>
-      <p class="stack">PYTHON · LLMS · EMAIL APIS</p>
-    </div>
-    <div class="card c2">
-      <span class="badge dev">experiments</span>
-      <h3>ML portfolio</h3>
-      <p>Credit-card fraud detection (Random Forest), multimodal emotion detector, Walmart sales forecasting (Prophet), movie recsys, A/B testing analysis.</p>
-      <p class="stack">SCIKIT-LEARN · PANDAS · STREAMLIT</p>
-    </div>
+    <article class="card c4 rv">
+      <div class="card-visual big"><span class="orb"></span><span class="mono">telegram · booking assistant</span></div>
+      <div class="card-body">
+        <span class="badge live">live beta · ~13 users</span>
+        <h3>Mira — AI Receptionist</h3>
+        <p>An appointment-booking assistant for salons, barber shops, beauty parlours and spas. Customers book, reschedule, check services, pricing and offers over chat; businesses get worker and schedule information. Built end to end, and iterated from real user feedback.</p>
+        <p class="stack">Python · LLMs · FastAPI · Telegram API</p>
+        <a class="demo" href="https://mira.voxlabs.site/" target="_blank" rel="noopener">live demo → mira.voxlabs.site</a>
+      </div>
+    </article>
+    <article class="card c2 rv rv-2">
+      <div class="card-visual"><span class="mono">redaction auditor</span></div>
+      <div class="card-body">
+        <span class="badge wip">in progress</span>
+        <h3>Redax</h3>
+        <p>An AI security tool that examines redacted documents, tests whether sensitive information is still recoverable, and reports leaks with severity.</p>
+        <p class="stack">Python · OCR · LLMs</p>
+      </div>
+    </article>
+    <article class="card c2 rv rv-3">
+      <div class="card-visual"><span class="mono">cost auditor</span></div>
+      <div class="card-body">
+        <span class="badge dev">in development</span>
+        <h3>TrimStack</h3>
+        <p>Connects to Gmail or Outlook, identifies unwanted subscriptions, and produces reports on wasted SMB spending.</p>
+        <p class="stack">Python · LLMs · Email APIs</p>
+      </div>
+    </article>
+    <article class="card c2 rv">
+      <div class="card-visual"><span class="mono">random forest</span></div>
+      <div class="card-body">
+        <span class="badge dev">project</span>
+        <h3>Fraud Detection</h3>
+        <p>Random Forest classifier detecting fraudulent card transactions in imbalanced financial data.</p>
+        <p class="stack">scikit-learn · Pandas · Streamlit</p>
+      </div>
+    </article>
+    <article class="card c2 rv rv-2">
+      <div class="card-visual"><span class="mono">text · audio · video</span></div>
+      <div class="card-body">
+        <span class="badge dev">project</span>
+        <h3>Emotion Detector</h3>
+        <p>Multimodal sentiment and emotion analysis with confidence scores, transcription and facial expression recognition.</p>
+        <p class="stack">Transformers · Whisper · DeepFace · OpenCV</p>
+      </div>
+    </article>
+    <article class="card c2 rv rv-3">
+      <div class="card-visual"><span class="mono">crawler · sheets</span></div>
+      <div class="card-body">
+        <span class="badge dev">experiments</span>
+        <h3>Automation Tools</h3>
+        <p>Web scraping and email automation that replace repetitive manual workflows, plus forecasting, recommendation and A/B testing apps.</p>
+        <p class="stack">Selenium · Prophet · Pandas</p>
+      </div>
+    </article>
   </div>
 </section>
-<section class="block rv" id="skills">
-  <p class="sec-tag mono">// 03 — skills</p>
-  <h2>Tools I <em>trust</em></h2>
+<section class="block wrap" id="capabilities">
+  <div class="sec-head rv">
+    <div>
+      <p class="sec-tag mono">// 03 — capabilities</p>
+      <h2>What I can <em>own end to end</em></h2>
+    </div>
+    <p class="sec-lede">Not just prompts — full pipelines: ingestion, retrieval, orchestration, storage, APIs and the guardrails that keep them trustworthy.</p>
+  </div>
+  <div class="cap-list">
+    <article class="cap rv">
+      <span class="n">01</span>
+      <h3>RAG &amp; Retrieval Systems</h3>
+      <p>Ingestion through grounded answer generation, tuned for accuracy, latency and cost.</p>
+      <ul><li>Chunking, metadata &amp; embeddings</li><li>Milvus vector storage &amp; filtering</li><li>Routing &amp; relationship traversal</li><li>Public/private context isolation</li><li>Grounding &amp; hallucination control</li></ul>
+    </article>
+    <article class="cap rv rv-2">
+      <span class="n">02</span>
+      <h3>Agentic Workflows</h3>
+      <p>Controlled multi-agent systems that act inside real product workflows, not demos.</p>
+      <ul><li>LlamaIndex Workflow orchestration</li><li>Specialized sub-agents per context</li><li>Tool &amp; live API calling</li><li>Entry/exit criteria per step</li><li>Pre &amp; post-processing guardrails</li><li>Agent-to-UI communication</li></ul>
+    </article>
+    <article class="cap rv rv-3">
+      <span class="n">03</span>
+      <h3>Document &amp; Data Pipelines</h3>
+      <p>Turning messy documents and scraped sources into structured, queryable data.</p>
+      <ul><li>PDF, scan &amp; image extraction</li><li>PyMuPDF4LLM + Azure OCR routing</li><li>Structured JSON generation</li><li>Web crawling &amp; enrichment</li><li>MongoDB / GridFS storage design</li><li>FastAPI service integration</li></ul>
+    </article>
+  </div>
+</section>
+
+<section class="block wrap" id="stack">
+  <div class="sec-head rv">
+    <div>
+      <p class="sec-tag mono">// 04 — stack</p>
+      <h2>Tools I use in <em>production</em></h2>
+    </div>
+    <p class="sec-lede">Every item below is traceable to work I actually did. I label the evidence level rather than padding a list.</p>
+  </div>
   <div class="skills-grid">
-    <div class="skill-group"><h3>AI &amp; Agentic AI</h3><div class="tags"><span>RAG</span><span>LlamaIndex</span><span>Multi-agent systems</span><span>Prompt engineering</span><span>Tool calling</span><span>Milvus</span><span>Hallucination mitigation</span><span>Retrieval security</span><span>OpenAI API</span></div></div>
-    <div class="skill-group"><h3>Backend &amp; APIs</h3><div class="tags"><span>Python</span><span>FastAPI</span><span>Pydantic</span><span>REST APIs</span><span>AsyncIO</span><span>Microservices</span><span>Playwright</span><span>Selenium</span></div></div>
-    <div class="skill-group"><h3>ML &amp; Data</h3><div class="tags"><span>scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Prophet</span><span>Feature engineering</span><span>A/B testing</span><span>Data cleaning</span></div></div>
-    <div class="skill-group"><h3>Storage &amp; Document AI</h3><div class="tags"><span>MongoDB</span><span>GridFS</span><span>Azure OCR</span><span>PyMuPDF4LLM</span><span>Structured JSON extraction</span><span>Metadata isolation</span></div></div>
+    <div class="skill-group rv"><h3>AI &amp; Agentic</h3><p class="note">Daily production use at Tradxlink.</p><div class="tags"><span>RAG</span><span>LlamaIndex</span><span>Multi-agent systems</span><span>Prompt engineering</span><span>Tool calling</span><span>Milvus</span><span>Hallucination mitigation</span><span>Retrieval security</span></div></div>
+    <div class="skill-group rv rv-2"><h3>Backend &amp; APIs</h3><p class="note">Services, integrations and async processing.</p><div class="tags"><span>Python</span><span>FastAPI</span><span>Pydantic</span><span>REST APIs</span><span>AsyncIO</span><span>Microservices</span><span>API integration</span><span>Background jobs</span></div></div>
+    <div class="skill-group rv rv-3"><h3>Storage &amp; Documents</h3><p class="note">Document intelligence and persistence.</p><div class="tags"><span>MongoDB</span><span>GridFS</span><span>Azure OCR</span><span>PyMuPDF4LLM</span><span>Structured JSON</span><span>Data ingestion</span><span>Metadata design</span></div></div>
+    <div class="skill-group rv"><h3>Automation</h3><p class="note">Crawlers and workflow replacement.</p><div class="tags"><span>Playwright</span><span>Selenium</span><span>Google Sheets API</span><span>Web scraping</span><span>Email automation</span><span>Data enrichment</span></div></div>
+    <div class="skill-group rv rv-2"><h3>ML &amp; Data</h3><p class="note">Project and applied experience.</p><div class="tags"><span>scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Prophet</span><span>Random Forest</span><span>Feature engineering</span><span>A/B testing</span></div></div>
+    <div class="skill-group rv rv-3"><h3>Multimodal</h3><p class="note">Explored in personal projects.</p><div class="tags"><span>Whisper</span><span>DeepFace</span><span>OpenCV</span><span>Transformers</span><span>Gradio</span><span>Streamlit</span></div></div>
+  </div>
+  <div class="legend rv"><span><b>PRODUCTION</b> — used in professional work at Tradxlink</span><span><b>PROJECT</b> — built independently or in portfolio apps</span><span><b>LEARNING</b> — completed coursework, not production</span></div>
+</section>
+<section class="block wrap" id="experience">
+  <div class="sec-head rv">
+    <div>
+      <p class="sec-tag mono">// 05 — experience</p>
+      <h2>Where I have <em>worked</em></h2>
+    </div>
+    <p class="sec-lede">A startup AI engineer on production systems, preceded by hands-on data and AI work.</p>
+  </div>
+  <div class="tl">
+    <article class="job rv">
+      <h3>AI &amp; Data Engineer — Tradxlink</h3>
+      <p class="meta mono">Sep 2025 — present · remote · procurement &amp; trade platform</p>
+      <ul>
+        <li><b>Enterprise RAG (Tradvisor):</b> ingestion into Milvus with metadata filtering and public/private context isolation; prompt engineering and entity knowledge to reduce hallucinations.</li>
+        <li><b>Retrieval security:</b> enforced user-context access controls before vector retrieval, closing a cross-user data exposure path.</li>
+        <li><b>Agentic procurement:</b> built product and service procurement agents on LlamaIndex Workflow with public/private/discovery sub-agents, tool calling and agent-to-UI popups.</li>
+        <li><b>Performance:</b> cut RAG responses from 30+ s to under 10 s and reduced AI cost by ~50% through model and response-generation changes.</li>
+        <li><b>Document AI:</b> routed text PDFs to PyMuPDF4LLM and scans to Azure OCR, producing consistent structured JSON; solved 300-page document failures with GridFS + reference rebuilds.</li>
+        <li><b>Backend:</b> FastAPI microservices for carrier performance, voyage-delay prediction, vessel reliability and document feature extraction.</li>
+      </ul>
+    </article>
+    <article class="job rv rv-2">
+      <h3>Process Executive Intern (Data) — Augtech NextWealth</h3>
+      <p class="meta mono">Jun 2025 — Sep 2025 · on-site</p>
+      <ul><li>Annotated LiDAR data for autonomous-vehicle object detection and scene understanding, sustaining 95–97% quality against QA benchmarks.</li></ul>
+    </article>
+    <article class="job rv rv-3">
+      <h3>Operations Intern — Edxso</h3>
+      <p class="meta mono">Apr 2025 — Jun 2025 · remote</p>
+      <ul><li>Automated web data collection with Python, Selenium and the Google Sheets API, cutting manual effort by ~80% and speeding up reporting.</li></ul>
+    </article>
+    <article class="job rv rv-4">
+      <h3>Data Science Program — Internship Studio</h3>
+      <p class="meta mono">Aug 2024 — Feb 2025 · learning</p>
+      <ul><li>Six-month program covering Jupyter Notebook, data visualization, data cleaning and data modeling. Listed as learning, not employment.</li></ul>
+    </article>
   </div>
 </section>
-<section class="block rv" id="education">
-  <p class="sec-tag mono">// 04 — education</p>
-  <h2>Foundations</h2>
-  <div class="edu-grid">
-    <div class="edu"><h3>Bachelor of Computer Applications</h3><p>Rungta College of Science and Technology, Chhattisgarh</p><p class="meta">2020 — 2023 · CGPA 8.0</p></div>
-    <div class="edu"><h3>Certifications</h3><p>Python — GUVI · Data Science Internship — Internship Studio</p><p class="meta">AUG 2023 · AUG 2024 — FEB 2025</p></div>
+<section class="block wrap" id="about">
+  <div class="sec-head rv">
+    <div>
+      <p class="sec-tag mono">// 06 — about</p>
+      <h2>The person behind the <em>systems</em></h2>
+    </div>
+  </div>
+  <div class="about">
+    <div class="rv">
+      <p>I completed my <b>BCA in 2023</b> and initially prepared for further studies. When that path did not continue, I moved into practical work: data-science coursework, then an operations internship automating web data collection — the first time software clearly replaced manual effort for me.</p>
+      <p>That led to AI and data work on <b>autonomous-vehicle LiDAR annotation</b>, and in September 2025 to Tradxlink, where I now build production AI for a procurement platform: enterprise RAG, agentic procurement workflows, document intelligence and Python microservices.</p>
+      <p>Alongside my role I build products independently. <b>Mira</b>, an AI receptionist, is live with real users. <b>Redax</b> and <b>TrimStack</b> are in development. I identify a problem, build the smallest useful version, put it in front of people, and iterate — that loop is what I enjoy most.</p>
+      <p>Long term I want to build my own technology company. Right now I am looking for a team where AI engineering is treated as a core product capability, not a side experiment.</p>
+    </div>
+    <div class="facts rv rv-2">
+      <div><span class="k">Focus</span><span class="v">RAG · Agentic AI · Document AI</span></div>
+      <div><span class="k">Current title</span><span class="v">AI &amp; Data Engineer</span></div>
+      <div><span class="k">Experience</span><span class="v">~1 year professional, broader hands-on exposure</span></div>
+      <div><span class="k">Education</span><span class="v">BCA, Rungta College of Science &amp; Technology, 2023 · CGPA 8.0</span></div>
+      <div><span class="k">Certifications</span><span class="v">Python (GUVI) · Data Science (Internship Studio)</span></div>
+      <div><span class="k">Location</span><span class="v">Pune, India</span></div>
+      <div><span class="k">Work mode</span><span class="v">Remote · Hybrid · On-site Pune</span></div>
+      <div><span class="k">Languages</span><span class="v">English · Hindi</span></div>
+    </div>
   </div>
 </section>
-<footer id="contact" class="rv">
-  <p class="sec-tag mono">// 05 — contact</p>
-  <h2>Let's build something <em>intelligent</em>.</h2>
-  <p class="sub">Open to AI Engineer, GenAI, RAG and Python roles — remote, hybrid or Pune. The fastest way to reach me is email; the fastest way to learn about me is the bot above.</p>
-  <div class="contact-grid">
-    <a href="mailto:prakash.sharma.1462003@gmail.com"><small>email</small>prakash.sharma.1462003@gmail.com</a>
-    <a href="tel:+918349353477"><small>phone</small>+91 8349353477</a>
-    <a href="https://linkedin.com/in/prakash-sharma-ps" target="_blank" rel="noopener"><small>linkedin</small>in/prakash-sharma-ps</a>
-    <a href="https://github.com/l1ght14" target="_blank" rel="noopener"><small>github</small>github.com/l1ght14</a>
+<section class="block wrap" id="faq">
+  <div class="sec-head rv">
+    <div>
+      <p class="sec-tag mono">// 07 — questions</p>
+      <h2>What recruiters ask <em>first</em></h2>
+    </div>
+    <p class="sec-lede">Or skip this and ask the assistant in the top-right — it answers from the same verified facts.</p>
   </div>
-  <div class="foot-bar"><span>© 2026 Prakash Sharma · Pune, India</span><span>this site ships with a RAG bot inside</span></div>
-</footer>
+  <div class="faq">
+    <details class="q rv"><summary>What does Prakash actually work on day to day?</summary><p class="a">Mostly production AI for a procurement platform: an enterprise RAG system users query conversationally, multi-agent procurement assistants, document extraction pipelines that turn PDFs and scans into structured data, and the FastAPI services behind them. A lot of the work is fixing real failure points — slow responses, data leaking across tenants, oversized documents breaking ingestion.</p></details>
+    <details class="q rv rv-2"><summary>Which roles is he looking for?</summary><p class="a">AI Engineer, GenAI Engineer, Applied AI Engineer, RAG or Agentic AI Developer, and Python Developer roles — ideally remote or hybrid, or on-site in Pune. He is open to startups, mid-sized and product companies.</p></details>
+    <details class="q rv rv-3"><summary>How much experience does he have?</summary><p class="a">Roughly one year of professional experience as an AI &amp; Data Engineer, plus hands-on data and AI work before that. The breadth comes from owning subsystems end to end rather than from many job titles.</p></details>
+    <details class="q rv rv-4"><summary>What can I see that he has built?</summary><p class="a">Mira, a live AI receptionist for salons and spas with around 13 users and a public demo. Redax, a redaction security auditor in progress. TrimStack, a subscription cost auditor in development. Plus a set of applied ML projects: fraud detection, multimodal emotion detection, sales forecasting, recommendations and A/B testing.</p></details>
+    <details class="q rv rv-5"><summary>Does he have cloud or Kubernetes experience?</summary><p class="a">He does not claim production cloud or Kubernetes ownership. His depth is in Python services, retrieval, agents, document processing and data pipelines. He is clear about the difference between what he has used and what he has only read about.</p></details>
+    <details class="q rv rv-6"><summary>How does this chatbot work?</summary><p class="a">It is a small retrieval-augmented generation system. Your question is matched against 70 verified facts from my career documents, the best matches are retrieved, and a language model answers using only those facts. If you ask something unrelated to me, it refuses. If the function is unavailable, it falls back to returning retrieved facts directly — so it never just breaks.</p></details>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="cta-band rv">
+    <p class="eyebrow mono">// let's talk</p>
+    <h2>If you are building AI that has to <em>actually work</em>, I would like to hear from you.</h2>
+    <p>Send me the role, the problem you are solving, or just say hello. The fastest first step is email — but you can also interrogate the assistant above and decide from the answers.</p>
+    <div class="cta-btns">
+      <a class="btn btn-solid" href="mailto:prakash.sharma.1462003@gmail.com">Email me</a>
+      <a class="btn" href="https://linkedin.com/in/prakash-sharma-ps" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/l1ght14" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download CV</a>
+    </div>
+  </div>
+</section>
 </main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <a class="logo" href="#top">prakash.sharma<span>@ai:~$</span></a>
+        <p>AI &amp; Data Engineer building production RAG, agentic systems and Python microservices. Currently at Tradxlink, open to remote and hybrid roles.</p>
+        <div class="foot-social">
+          <a href="https://github.com/l1ght14" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
+          <a href="https://linkedin.com/in/prakash-sharma-ps" target="_blank" rel="noopener" aria-label="LinkedIn">IN</a>
+          <a href="mailto:prakash.sharma.1462003@gmail.com" aria-label="Email">@</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Navigate</h4>
+        <a href="#work">Selected work</a><a href="#projects">Projects</a><a href="#capabilities">Capabilities</a><a href="#stack">Stack</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#faq">FAQ</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="mailto:prakash.sharma.1462003@gmail.com">prakash.sharma.1462003@gmail.com</a>
+        <a href="tel:+918349353477">+91 8349353477</a>
+        <a href="resume.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+      </div>
+      <div class="foot-col">
+        <h4>Elsewhere</h4>
+        <a href="https://github.com/l1ght14" target="_blank" rel="noopener">GitHub — github.com/l1ght14</a>
+        <a href="https://linkedin.com/in/prakash-sharma-ps" target="_blank" rel="noopener">LinkedIn — /in/prakash-sharma-ps</a>
+        <a href="https://mira.voxlabs.site/" target="_blank" rel="noopener">Mira demo — mira.voxlabs.site</a>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© 2026 Prakash Sharma · Pune, India</span>
+      <span>vanilla html / css / js · no trackers · the assistant answers only from my career facts</span>
+    </div>
+  </div>
+</footer>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>
