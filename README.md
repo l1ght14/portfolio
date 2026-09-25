@@ -115,17 +115,20 @@ tools/
   bake_scenes.py    bakes the reference GIFs in image/ into assets/scenes.js
 ```
 
-The ASCII scenes are **generated, not hand-written**. Drop a GIF into
-`image/`, add a row to `SCENES` in `tools/bake_scenes.py`, then:
+The ASCII scenes are **generated, not hand-written**. The source GIFs are
+reference material and are kept outside this repo (in `image/` next to the
+site folder, or wherever `SCENE_GIFS` points). To change them, edit the
+`SCENES` list in `tools/bake_scenes.py` and re-run:
 
 ```bash
-python tools/bake_scenes.py     # rewrites site/assets/scenes.js
+python tools/bake_scenes.py     # rewrites assets/scenes.js
 ```
 
 It crops each animation to its content, keys out the flat background,
 normalises tone once per scene so playback does not flicker, caps density on
 scenes that would otherwise render as a solid wall, and run-length encodes
-the result.
+the result. The bake is deterministic: re-running it on unchanged input
+reproduces `assets/scenes.js` byte for byte.
 
 ---
 
