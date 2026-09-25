@@ -307,13 +307,23 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
 .lab-hint{font-family:var(--mono);font-size:.6rem;color:var(--dim);letter-spacing:.08em;margin-top:12px}
 .ascii-brain{
   font-family:var(--mono);font-size:.62rem;line-height:1.16;color:var(--sky);
-  white-space:pre;overflow-x:auto;cursor:pointer;margin:0;
+  white-space:pre;overflow-x:auto;cursor:pointer;margin:0;position:relative;
+  padding:8px 0 14px;
   text-shadow:0 0 10px rgba(176,237,249,.28);
-  animation:brainFloat 5s ease-in-out infinite;
 }
+.ascii-brain:focus-visible{outline:1px solid var(--acid);outline-offset:6px;border-radius:4px}
 .ascii-brain.hot{color:var(--acid);text-shadow:0 0 12px rgba(255,254,21,.35)}
 .ascii-brain.cool{color:#7FE0C0}
-@keyframes brainFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+/* front layer carries the motion; back layer lags for parallax depth */
+.brain-face{
+  position:relative;z-index:1;display:block;
+  transform-origin:50% 58%;will-change:transform;
+}
+.brain-depth{
+  position:absolute;z-index:0;top:8px;left:0;right:0;
+  color:var(--dim);opacity:.42;pointer-events:none;
+  transform-origin:50% 58%;will-change:transform;
+}
 .portrait-frame{
   display:grid;place-items:center;overflow:hidden;border-radius:10px;
   background:
@@ -324,7 +334,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
 }
 .portrait-frame canvas{display:block;max-width:100%}
 @media (max-width:900px){.lab{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){.ascii-brain{animation:none}}
+@media (prefers-reduced-motion:reduce){.brain-face,.brain-depth{transform:none!important;will-change:auto}}
 .repos{margin-top:34px;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:28px 30px}
 .repo-head{display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:22px}
 .repo-head h3{font-size:1.12rem}

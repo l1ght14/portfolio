@@ -70,20 +70,23 @@
           const nx = (x + 0.5) / cols - CFG.vignetteX;
           const ny = (y + 0.5) / rows - CFG.vignetteY;
           const v = Math.sqrt(Math.pow(nx / CFG.vignetteRX, 2) + Math.pow(ny / CFG.vignetteRY, 2));
-          const vig = Math.max(0, 1 - Math.pow(v, 2.1) * 1.06);
+          const vig = Math.max(0, 1 - Math.pow(v, 3.4) * 0.92);
           const lum = t * vig;
           state.lum[k] = lum;
           const ri = RAMP[Math.min(RAMP.length - 1, Math.round(lum * (RAMP.length - 1)))];
           state.chars[k] = ri === " " ? " " : ri;
-          const warm = d[i] - d[i + 2];
+          const mx = Math.max(d[i], d[i + 1], d[i + 2]);
+          const mn = Math.min(d[i], d[i + 1], d[i + 2]);
+          const sat = mx ? (mx - mn) / mx : 0;
           const lumC = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+          if (sat < 0.10 && lumC > 58) { state.alpha[k] = 0; state.rgb[k] = PAL[3]; continue; }
+          const l = lum * 2.5 - 0.92;
           let ci;
-          if (warm > 14 && lum > 0.30) ci = 0;
-          else if (lum > 0.46) ci = 1;
-          else if (lum > 0.16) ci = 2;
-          else ci = 3;
+          if (l > 0.62) ci = 0;
+          else if (l > 0.20) ci = 1;
+          else ci = 2;
           state.rgb[k] = PAL[ci];
-          state.alpha[k] = Math.min(1, (0.30 + lum * 1.5) * (ci === 0 ? 1.4 : 1));
+          state.alpha[k] = Math.min(1, (0.26 + lum * 1.5) * (ci === 0 ? 1.1 : 1));
         }
       }
       state.cols = cols; state.rows = rows; state.cellW = cw; state.cellH = ch;

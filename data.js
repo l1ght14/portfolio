@@ -78,7 +78,7 @@
 {t:"project_url",s:"Redax, his AI redaction security auditor, is still in progress and its repository is private, so it has no public link yet. It is built with Streamlit and Python."},
 {t:"project_url",s:"TrimStack, his AI subscription auditor, is deployed live at trim-stack.vercel.app. The source code repository is private, so there is no public link to share."},
 {t:"project_url",s:"His AI resume screener using TF-IDF and cosine similarity is hosted at github.com/l1ght14/resume-screener-nlp. It is built with Streamlit and scikit-learn."},
-{t:"project_url",s:"His multimodal emotion detector is hosted at github.com/l1ght14/emotion_detector and has a live Streamlit demo at emotiondetector-kvvjnwkvlqcbssx8ttvzwj.streamlit.app."},
+{t:"project_url",s:"His multimodal emotion detector is hosted at github.com/l1ght14/emotion_detector. Its Streamlit demo requires a Streamlit account, so the GitHub repository is the public way to review it."},
 {t:"project_url",s:"His Bitcoin trader sentiment analysis project, TraderSentiment PrimeTrade, is hosted at github.com/l1ght14/TraderSentiment_PrimeTrade. It analyses the Fear and Greed Index against historical trader PnL data."},
 {t:"project_url",s:"His number system converter, which converts numbers to binary, decimal, octal and hexadecimal, is hosted at github.com/l1ght14/NUMBER-SYSTEM."},
 {t:"project_url",s:"His desktop voice assistant is hosted at github.com/l1ght14/Desktop-Voice-Assistant-main."},
