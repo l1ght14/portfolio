@@ -22,12 +22,22 @@ const cos = (a, b) => {
   for (const w in b) nb += b[w] * b[w];
   return na && nb ? d / Math.sqrt(na * nb) : 0;
 };
+const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+const NAMES = ["mira", "redax", "trimstack", "tradersentiment", "resume-screener-nlp", "emotion_detector", "walmart", "covid-19", "loan-default-prediction", "customer-churn", "customer-segmentation", "blood_cell_detection_v2", "movie-recommender", "ab-testing-landing-page", "e-commerce-sales-analysis", "loan_approval_model", "number-system", "desktop-voice-assistant-main", "credit-card-fraud-detection"];
 const retrieve = q => {
   const v = vec(q);
-  const wantsCount = /\b(how many|how much|list all|all projects|name (his|your) projects|which projects)\b/.test(q.toLowerCase());
+  const ql = q.toLowerCase();
+  const nq = norm(q);
+  const wantsCount = /\b(how many|how much|list all|all projects|name (his|your) projects|which projects)\b/.test(ql);
+  const wantsLink = /\b(where|github|link|url|repo|repository|hosted|demo|source|code)\b/.test(ql);
   return window.KB.map(c => {
     let s = cos(v, vec(c.t + " " + c.s));
     if (wantsCount && c.s.indexOf("Project count") === 0) s += 0.5;
+    if (wantsLink && /^(github|links|project_url)$/.test(c.t)) s += 0.4;
+    if (/\bgithub\b/.test(ql) && c.t === "github") s += 0.45;
+    if (/\blinkedin\b/.test(ql) && c.s.indexOf("LinkedIn") > -1) s += 0.45;
+    const name = c.s.split(",")[0].split(" his ")[0].trim();
+    if (name.length > 3 && NAMES.indexOf(norm(name)) > -1 && nq.indexOf(norm(name)) > -1) s += 0.75;
     return { c, s };
   }).sort((x, y) => y.s - x.s).slice(0, 4);
 };
