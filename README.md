@@ -3,7 +3,7 @@
 A one-page AI portfolio with a **RAG chat assistant** built in: visitors land on the page and can interrogate a bot that is grounded strictly on Prakash's career documents.
 
 - **Stack:** vanilla HTML/CSS/JS, zero dependencies, no build step.
-- **Chat:** client-side TF-IDF retrieval over a 31-chunk knowledge base + an LLM generation step that runs server-side through `api/chat.js`.
+- **Chat:** client-side TF-IDF retrieval over a 102-chunk knowledge base + an LLM generation step that runs server-side through `api/chat.js`.
 - **Keys:** live in environment variables, never in the browser.
 
 ---
@@ -100,13 +100,32 @@ Then Repo -> **Settings** -> **Pages** -> Source: `main` / root -> Save.
 site/
   index.html        markup: hero + chat, metrics, experience, projects, skills, education, contact
   styles.css        all styling + design tokens
-  data.js           window.KB — 31 knowledge-base chunks powering the RAG retrieval
+  data.js           window.KB — 102 knowledge-base chunks powering the RAG retrieval
   app.js            retrieval (TF-IDF cosine), chat UI, typewriter, scroll reveals
+  brain.js          autonomous ASCII brain: 3D drift, per-state motion, click-to-lock
+  scenes.js         ASCII scene player: plays the baked GIF scenes at random
+  assets/scenes.js  generated ASCII frame data (run-length encoded)
+  assets/avatar.jpg the site photo, shown as a photo
   api/chat.js       serverless endpoint: holds API keys server-side, calls Gemini/Groq
   .env.example      template of env var names
   .gitignore        keeps .env and secrets out of git
   README.md         this file
+
+tools/
+  bake_scenes.py    bakes the reference GIFs in image/ into assets/scenes.js
 ```
+
+The ASCII scenes are **generated, not hand-written**. Drop a GIF into
+`image/`, add a row to `SCENES` in `tools/bake_scenes.py`, then:
+
+```bash
+python tools/bake_scenes.py     # rewrites site/assets/scenes.js
+```
+
+It crops each animation to its content, keys out the flat background,
+normalises tone once per scene so playback does not flicker, caps density on
+scenes that would otherwise render as a solid wall, and run-length encodes
+the result.
 
 ---
 

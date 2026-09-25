@@ -26,7 +26,7 @@
   <div class="boot-inner">
     <p class="boot-line mono">&gt; booting prakash.sharma@portfolio ...</p>
     <p class="boot-line mono">&gt; initialising glyph renderer<span class="boot-dots"></span></p>
-    <p class="boot-line mono">&gt; loading 74 verified career facts<span class="boot-dots"></span></p>
+      <p class="boot-line mono">&gt; loading 102 verified career facts<span class="boot-dots"></span></p>
     <p class="boot-line mono">&gt; mounting RAG pipeline<span class="boot-dots"></span></p>
     <p class="boot-line mono boot-ok">&gt; READY<span class="boot-caret"></span></p>
   </div>
@@ -422,13 +422,23 @@
       <div class="lab">
         <figure class="lab-panel rv">
           <figcaption class="mono">neural_core — autonomous</figcaption>
-          <pre class="ascii-brain" id="ascii-brain" role="img" aria-label="Animated ASCII brain that codes, thinks and tidies"></pre>
+          <div class="brain-wrap">
+            <pre class="ascii-brain" id="ascii-brain" role="img" aria-label="Animated ASCII brain that codes, thinks and tidies"></pre>
+          </div>
           <p class="lab-hint mono">click it to make it code</p>
         </figure>
         <figure class="lab-panel rv rv-2">
-          <figcaption class="mono">identity.render — from photo</figcaption>
-          <div class="portrait-frame" id="portrait" role="img" aria-label="ASCII art portrait of Prakash Sharma"></div>
-          <p class="lab-hint mono">45&#215;86 glyphs &#183; acid / sky / muted</p>
+          <figcaption class="mono">prakash.sharma — actual human</figcaption>
+          <div class="portrait-frame">
+            <img src="assets/avatar.jpg" width="720" height="720" alt="Prakash Sharma, AI and Data Engineer in Pune, India" decoding="async">
+          </div>
+          <p class="lab-hint mono">unedited photo · no ascii, no filter</p>
+        </figure>
+        <figure class="lab-panel lab-wide rv">
+          <figcaption class="mono">scene_loop — random</figcaption>
+          <div class="scene-frame" id="scenes" role="button" tabindex="0"
+               aria-label="ASCII animation. Click for a random scene."></div>
+          <p class="lab-hint mono">click for another scene</p>
         </figure>
       </div>
     </div>
@@ -521,7 +531,8 @@
   </div>
 </footer>
 <script src="data.js"></script>
-<script src="ascii.js"></script>
+<script src="assets/scenes.js"></script>
+<script src="scenes.js"></script>
 <script src="brain.js"></script>
 <script src="app.js"></script>
 </body>
