@@ -14,8 +14,6 @@
     fps: 15,
     dim: 0.9,
     dpr: 1, baseDirty: true,
-    repulseRadius: 150,
-    repulseForce: 26
   };
   const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const PAL = [
@@ -28,7 +26,7 @@
     ready: false, cols: 0, rows: 0, cellW: 8, cellH: 16,
     chars: [], lum: [], rgb: [], alpha: [],
     px: 0, py: 0, tX: 0, tY: 0, cX: 0, cY: 0,
-    vel: 0, activity: "idle", actT: 0, sweep: -1,
+    activity: "idle", actT: 0, sweep: -1,
     reveal: REDUCED ? 1 : 0, booted: REDUCED, out: 0,
     scrollP: 0, lastY: 0, on: false
   };
@@ -80,12 +78,12 @@
           const warm = d[i] - d[i + 2];
           const lumC = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
           let ci;
-          if (warm > 26 && lumC > 128) ci = 0;
-          else if (lumC > 150) ci = 1;
-          else if (lumC > 82) ci = 2;
+          if (warm > 14 && lum > 0.30) ci = 0;
+          else if (lum > 0.46) ci = 1;
+          else if (lum > 0.16) ci = 2;
           else ci = 3;
           state.rgb[k] = PAL[ci];
-          state.alpha[k] = Math.min(1, (0.42 + lum * 1.75) * (ci === 0 ? 1.45 : 1));
+          state.alpha[k] = Math.min(1, (0.30 + lum * 1.5) * (ci === 0 ? 1.4 : 1));
         }
       }
       state.cols = cols; state.rows = rows; state.cellW = cw; state.cellH = ch;
@@ -98,18 +96,21 @@
   function layout() {
     const dpr = Math.min(1.5, window.devicePixelRatio || 1);
     state.dpr = dpr;
-    const w = window.innerWidth, h = window.innerHeight;
+    const host = cv.parentElement;
+    const box = host ? host.getBoundingClientRect() : null;
+    const w = box ? Math.max(240, box.width) : window.innerWidth;
+    const h = box ? Math.max(200, box.height) : window.innerHeight;
     cv.width = Math.floor(w * dpr); cv.height = Math.floor(h * dpr);
     cv.style.width = w + "px"; cv.style.height = h + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     base.width = cv.width; base.height = cv.height;
     bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     state.baseDirty = true;
-    const target = Math.min(w * 0.60, h * 0.80);
+    const target = w;
     const cpl = target / state.cols;
     state.cellW = cpl; state.cellH = cpl * CFG.cellRatio;
-    state.px = w * 0.68 - (state.cols * state.cellW) / 2;
-    state.py = h * 0.5 - (state.rows * state.cellH) / 2;
+    state.px = (w - (state.cols * state.cellW)) / 2;
+    state.py = (h - (state.rows * state.cellH)) / 2;
     state.cX = state.px; state.cY = state.py;
   }
   const ACTS = ["coding", "cleaning", "thinking", "debugging"];
@@ -146,8 +147,11 @@
     if (acc >= 1 / CFG.fps) { draw(); acc = 0; }
     requestAnimationFrame(frame);
   }
+  const boxSize = () => {
+    const box = cv.parentElement ? cv.parentElement.getBoundingClientRect() : null;
+    return { w: box ? box.width : window.innerWidth, h: box ? box.height : window.innerHeight };
+  };
   function renderBase() {
-    const w = window.innerWidth, h = window.innerHeight;
     bctx.setTransform(1, 0, 0, 1, 0, 0);
     bctx.clearRect(0, 0, base.width, base.height);
     bctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
@@ -170,7 +174,7 @@
     state.baseDirty = false;
   }
   function draw() {
-    const w = window.innerWidth, h = window.innerHeight;
+    const bs = boxSize(), w = bs.w, h = bs.h;
     ctx.clearRect(0, 0, w, h);
     if (!state.ready) return;
     if (state.baseDirty || !state.booted) renderBase();
@@ -193,31 +197,6 @@
       ctx.fillStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + Math.min(1, a).toFixed(3) + ")";
       ctx.fillText(ch, px0 + x * cellW + cellW / 2 + ox, py0 + y * cellH + cellH / 2 + oy);
     };
-    for (let y = 0; y < rows; y++) {
-      const hx = px0 + cols * cellW / 2, hy = py0 + y * cellH;
-      if (Math.abs(hy - state.pointer.y) > CFG.repulseRadius) continue;
-      for (let x = 0; x < cols; x++) {
-        const k = y * cols + x;
-        if (state.chars[k] === " ") continue;
-        const dx = px0 + x * cellW + cellW / 2 - state.pointer.x;
-        const dy = hy - state.pointer.y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d > CFG.repulseRadius) continue;
-        const f = (1 - d / CFG.repulseRadius) * CFG.repulseForce;
-        const ang = Math.atan2(dy, dx) + Math.PI;
-        put(k, state.chars[k], Math.cos(ang) * f, Math.sin(ang) * f, 0.5);
-      }
-    }
-    if (state.vel > 0.02) {
-      for (let y = 0; y < rows; y += 2) {
-        for (let x = 0; x < cols; x += 3) {
-          const k = y * cols + x;
-          if (state.chars[k] === " ") continue;
-          if (Math.random() > 0.3) continue;
-          put(k, state.chars[k], state.vel * (y / rows) * 60, 0, 0.85);
-        }
-      }
-    }
     if (state.activity === "cleaning" && state.sweep >= 0) {
       const band = Math.round(rows * 0.1);
       const sy = Math.round(state.sweep * rows);
@@ -258,39 +237,12 @@
       }
     }
   }
-  state.pointer = { x: -9999, y: -9999, inside: false };
   function init() {
-    const host = document.getElementById("ascii-stage");
+    const host = document.getElementById("portrait") || document.getElementById("ascii-stage");
     if (!host) return;
     host.appendChild(cv);
     state.on = true;
     window.addEventListener("resize", layout, { passive: true });
-    window.addEventListener("pointermove", e => {
-      state.pointer.x = e.clientX; state.pointer.y = e.clientY; state.pointer.inside = true;
-    }, { passive: true });
-    window.addEventListener("pointerleave", () => { state.pointer.inside = false; state.pointer.x = -9999; state.pointer.y = -9999; });
-    let lastY = window.scrollY, calm = 0;
-    window.addEventListener("scroll", () => {
-      const y = window.scrollY;
-      const d = Math.abs(y - lastY);
-      lastY = y;
-      state.vel = Math.min(1, state.vel + d / 42);
-      calm = 0;
-      const stage = document.getElementById("hero-stage");
-      if (stage) {
-        const r = stage.getBoundingClientRect();
-        const p = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height)));
-        state.scrollP = p;
-        state.out = Math.max(0, Math.min(1, (p - 0.55) / 0.45));
-        state.baseDirty = true;
-        const h = document.querySelector(".hero .wrap");
-        if (h) { h.style.opacity = String(Math.max(0, 1 - p * 1.7)); h.style.transform = "translateY(" + (-p * 46) + "px)"; }
-      }
-    }, { passive: true });
-    setInterval(() => {
-      calm += 1;
-      if (calm > 2) { state.vel *= 0.82; if (state.vel < 0.004) state.vel = 0; }
-    }, 120);
     document.addEventListener("visibilitychange", () => { state.on = !document.hidden; if (state.on) { last = 0; requestAnimationFrame(frame); } });
     const boot = document.getElementById("boot");
     if (boot) {

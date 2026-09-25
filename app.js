@@ -22,8 +22,16 @@ const cos = (a, b) => {
   for (const w in b) nb += b[w] * b[w];
   return na && nb ? d / Math.sqrt(na * nb) : 0;
 };
-const retrieve = q => window.KB.map(c => ({ c, s: cos(vec(q), vec(c.t + " " + c.s)) })).sort((x, y) => y.s - x.s).slice(0, 4);
-const ANCHORS = new Set("prakash he his him mira redax trimstack tradxlink tradvisor edxso nextwealth augtech internship intern bca rungta pune rag agent agentic agents llama llamaindex milvus gridfs mongodb fastapi python lidar procurement requisition ocr embeddings embedding hallucination latency portfolio resume cv hire hiring recruiter candidate role roles job work worked works skill skills experience experienced project projects education degree study studied contact email phone linkedin github remote hybrid onsite ability abilities built build building know knows tech stack strength strengths available availability certification certificate company startup".split(" "));
+const retrieve = q => {
+  const v = vec(q);
+  const wantsCount = /\b(how many|how much|list all|all projects|name (his|your) projects|which projects)\b/.test(q.toLowerCase());
+  return window.KB.map(c => {
+    let s = cos(v, vec(c.t + " " + c.s));
+    if (wantsCount && c.s.indexOf("Project count") === 0) s += 0.5;
+    return { c, s };
+  }).sort((x, y) => y.s - x.s).slice(0, 4);
+};
+const ANCHORS = new Set("prakash he his him mira redax trimstack tradxlink tradvisor edxso nextwealth augtech internship intern bca rungta pune rag agent agentic agents llama llamaindex milvus gridfs mongodb fastapi python lidar procurement requisition ocr embeddings embedding hallucination latency portfolio resume cv hire hiring recruiter candidate role roles job work worked works skill skills experience experienced project projects education degree study studied contact email phone linkedin github remote hybrid onsite ability abilities built build building know knows tech stack strength strengths available availability certification certificate company startup tradersentiment primetrade screener sentiment churn segmentation kmeans loan walmart covid blood cell fraud recommender forecasting a/b testing voice assistant number system converter text2sql table retrieval nlp streamlit prophet pandas numpy pytorch".split(" "));
 const onTopic = q => (q.toLowerCase().match(/[a-z0-9]+/g) || []).some(w => ANCHORS.has(w));
 const fallback = q => {
   if (!tok(q).length) return window.KB.filter(c => c.t === "abilities").slice(0, 3).map(c => c.s).join(" ");
