@@ -29,13 +29,28 @@
   const DWELL = 5200;      // ms before switching to another random scene
   const PREBUILD = 2;      // frame canvases warmed per tick, off the critical path
 
-  // ramp index -> [r, g, b, alpha]; index 0 is the background and stays empty
-  const TIER = [
-    null,
-    [143, 166, 179, 0.30], [143, 166, 179, 0.42], [143, 166, 179, 0.55],
-    [143, 166, 179, 0.68], [176, 237, 249, 0.62], [176, 237, 249, 0.78],
-    [176, 237, 249, 0.92], [255, 254, 21, 0.80], [255, 254, 21, 0.98]
+  // Colour per ramp glyph, interpolated by the glyph's position in the ramp
+  // rather than by a hardcoded index. The baker decides the ramp and its
+  // length, so a table sized for a different ramp would silently drop levels.
+  const DIM = [143, 166, 179], SKY = [176, 237, 249], ACID = [255, 254, 21];
+  const STOPS = [
+    [0.00, DIM, 0.00], [0.16, DIM, 0.26], [0.44, DIM, 0.52],
+    [0.66, SKY, 0.68], [0.88, SKY, 0.92], [1.00, ACID, 0.98]
   ];
+  const RAMP = window.SCENE_RAMP || " .:-=+*#%@";
+  const TIER = [];
+  for (let i = 0; i < RAMP.length; i++) {
+    const p = RAMP.length < 2 ? 1 : i / (RAMP.length - 1);
+    let k = 0;
+    while (k < STOPS.length - 2 && p > STOPS[k + 1][0]) k++;
+    const a = STOPS[k], b = STOPS[k + 1];
+    const f = (p - a[0]) / (b[0] - a[0] || 1);
+    TIER.push("rgba(" +
+      Math.round(a[1][0] + (b[1][0] - a[1][0]) * f) + "," +
+      Math.round(a[1][1] + (b[1][1] - a[1][1]) * f) + "," +
+      Math.round(a[1][2] + (b[1][2] - a[1][2]) * f) + "," +
+      (a[2] + (b[2] - a[2]) * f).toFixed(3) + ")");
+  }
 
   const cv = document.createElement("canvas");
   const ctx = cv.getContext("2d");
@@ -103,10 +118,8 @@
     for (let i = 0; i < cols * rows; i++) {
       const ch = data[i];
       if (ch === " ") continue;
-      const tier = TIER[" .:-=+*#%@".indexOf(ch)];
-      if (!tier) continue;
-      const css = "rgba(" + tier[0] + "," + tier[1] + "," + tier[2] + "," + tier[3] + ")";
-      if (css !== cur) { g.fillStyle = css; cur = css; }
+      const tier = TIER[RAMP.indexOf(ch)];
+      if (tier) { if (tier !== cur) { g.fillStyle = tier; cur = tier; } } else continue;
       const x = i % cols, y = (i / cols) | 0;
       g.fillText(ch, ox + x * cellW + cellW / 2, oy + y * cellH + cellH / 2);
     }
