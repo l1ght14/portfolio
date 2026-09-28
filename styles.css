@@ -305,32 +305,13 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
 .lab-panel:hover{border-color:rgba(255,254,21,.34)}
 .lab-panel figcaption{font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--sky);margin-bottom:14px}
 .lab-hint{font-family:var(--mono);font-size:.6rem;color:var(--dim);letter-spacing:.08em;margin-top:12px}
-.ascii-brain{
-  font-family:var(--mono);font-size:1.02rem;line-height:1.14;color:var(--sky);
-  white-space:pre;overflow-x:auto;cursor:pointer;margin:0;position:relative;
-  padding:8px 0 14px;
-  text-shadow:0 0 10px rgba(176,237,249,.28);
-}
-.ascii-brain:focus-visible{outline:1px solid var(--acid);outline-offset:6px;border-radius:4px}
-.ascii-brain.hot{color:var(--acid);text-shadow:0 0 12px rgba(255,254,21,.35)}
-.ascii-brain.cool{color:#7FE0C0}
-/* front layer carries the motion; back layer lags for parallax depth */
-.brain-face{
-  position:relative;z-index:1;display:block;
-  transform-origin:50% 58%;will-change:transform;
-}
-.brain-depth{
-  position:absolute;z-index:0;top:8px;left:0;right:0;
-  color:var(--dim);opacity:.42;pointer-events:none;
-  transform-origin:50% 58%;will-change:transform;
-}
 .portrait-frame{
   display:grid;place-items:center;overflow:hidden;border-radius:10px;
   background:
     radial-gradient(120% 90% at 50% 20%,rgba(176,237,249,.06),transparent 70%),
     var(--deep);
   border:1px solid var(--line);
-  min-height:300px;
+  aspect-ratio:1/1;width:100%;
 }
 /* the real photo, shown as a photo */
 .portrait-frame img{
@@ -343,15 +324,13 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
     radial-gradient(120% 90% at 50% 20%,rgba(176,237,249,.05),transparent 70%),
     var(--deep);
   border:1px solid var(--line);
-  min-height:420px;
+  aspect-ratio:1/1;width:100%;
 }
 .scene-frame canvas{display:block;margin:0 auto}
 .scene-frame:focus-visible{outline:1px solid var(--acid);outline-offset:3px}
 .lab-panel{display:flex;flex-direction:column}
-.lab-wide{grid-column:1/-1}
-.brain-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.lab-panel .lab-hint{margin-top:auto}
 @media (max-width:900px){.lab{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){.brain-face,.brain-depth{transform:none!important;will-change:auto}}
 .repos{margin-top:34px;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:28px 30px}
 .repo-head{display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:22px}
 .repo-head h3{font-size:1.12rem}

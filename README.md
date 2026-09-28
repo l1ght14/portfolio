@@ -102,7 +102,6 @@ site/
   styles.css        all styling + design tokens
   data.js           window.KB — 102 knowledge-base chunks powering the RAG retrieval
   app.js            retrieval (TF-IDF cosine), chat UI, typewriter, scroll reveals
-  brain.js          autonomous ASCII brain: 3D drift, per-state motion, click-to-lock
   scenes.js         ASCII scene player: plays the baked GIF scenes at random
   assets/scenes.js  generated ASCII frame data (run-length encoded)
   assets/avatar.jpg the site photo, shown as a photo
