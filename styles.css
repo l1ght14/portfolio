@@ -311,7 +311,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
     radial-gradient(120% 90% at 50% 20%,rgba(176,237,249,.06),transparent 70%),
     var(--deep);
   border:1px solid var(--line);
-  aspect-ratio:1/1;width:100%;
+  aspect-ratio:1/1;width:100%;max-width:400px;margin:0 auto;
 }
 /* the real photo, shown as a photo */
 .portrait-frame img{
@@ -324,7 +324,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
     radial-gradient(120% 90% at 50% 20%,rgba(176,237,249,.05),transparent 70%),
     var(--deep);
   border:1px solid var(--line);
-  aspect-ratio:1/1;width:100%;
+  aspect-ratio:1/1;width:100%;max-width:400px;margin:0 auto;
 }
 .scene-frame canvas{display:block;margin:0 auto}
 .scene-frame:focus-visible{outline:1px solid var(--acid);outline-offset:3px}

@@ -26,7 +26,7 @@ GIF_DIR = os.environ.get("SCENE_GIFS") or next(
 
 RAMP = " .:-=+*#%@"          # must match ascii/scenes.js
 CELL_RATIO = 0.52           # must match the renderer
-COLS = 48
+COLS = 40
 MAX_FRAMES = 14
 BG_TOL = 12                 # per-channel tolerance for keying the background
 GAMMA = 0.82
