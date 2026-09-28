@@ -156,6 +156,8 @@ if (sections.length && "IntersectionObserver" in window) {
 }
 const kbCount = document.getElementById("kbcount");
 if (kbCount) kbCount.textContent = "grounded on " + window.KB.length + " verified career facts";
+const faqKb = document.getElementById("faqkb");
+if (faqKb) faqKb.textContent = String(window.KB.length);
 const statEls = document.querySelectorAll(".stat b[data-from]");
 const statFmt = (el, v) => {
   const tilde = el.dataset.tilde === "1";
