@@ -98,8 +98,10 @@ h1 .hl{color:var(--acid);text-shadow:0 0 30px rgba(255,254,21,.28)}
 .chat-input{display:flex;align-items:center;gap:10px;padding:13px 16px;border-top:1px solid var(--line);background:rgba(15,36,49,.5)}
 .chat-input label{font-family:var(--mono);font-size:.7rem;color:var(--sky);white-space:nowrap;flex:none}
 .chat-input input{flex:1;min-width:0;background:transparent;border:none;color:var(--ink);font-family:var(--sans);font-size:.92rem}
-.chat-input input:focus{outline:none}
 .chat-input input::placeholder{color:var(--dim)}
+/* the bare input must not show its own ring, but the whole field lights up
+   on focus so a keyboard user can still see where they are */
+.chat-input:focus-within{border-top-color:var(--acid);box-shadow:inset 0 1px 0 rgba(255,254,21,.35)}
 .send{background:var(--acid);border:none;border-radius:8px;width:38px;height:34px;display:grid;place-items:center;cursor:pointer;flex:none;transition:.2s}
 .send:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(255,254,21,.3)}
 .send svg{width:15px;height:15px;fill:var(--bg)}
