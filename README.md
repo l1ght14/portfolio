@@ -102,7 +102,7 @@ site/
   styles.css        all styling + design tokens
   data.js           window.KB — 102 knowledge-base chunks powering the RAG retrieval
   app.js            retrieval (TF-IDF cosine), chat UI, typewriter, scroll reveals
-  scenes.js         ASCII scene player: plays the baked GIF scenes at random
+  scenes.js         ASCII scene player: animates the baked GIF scene
   assets/scenes.js  generated ASCII frame data (run-length encoded)
   assets/avatar.jpg the site photo, shown as a photo
   api/chat.js       serverless endpoint: holds API keys server-side, calls Gemini/Groq
@@ -114,10 +114,12 @@ tools/
   bake_scenes.py    bakes the reference GIFs in image/ into assets/scenes.js
 ```
 
-The ASCII scenes are **generated, not hand-written**. The source GIFs are
-reference material and are kept outside this repo (in `image/` next to the
-site folder, or wherever `SCENE_GIFS` points). To change them, edit the
-`SCENES` list in `tools/bake_scenes.py` and re-run:
+One scene is configured — the headbanging GIF. The ASCII scene is
+**generated, not hand-written**. The source GIF is reference material and is
+kept outside this repo (in `image/` next to the site folder, or wherever
+`SCENE_GIFS` points). To swap it, edit the `SCENES` list in
+`tools/bake_scenes.py` and re-run. Adding a second row makes the player
+rotate between them at random again:
 
 ```bash
 python tools/bake_scenes.py     # rewrites assets/scenes.js

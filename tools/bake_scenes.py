@@ -36,11 +36,7 @@ MAX_COVER = 0.60            # only scenes denser than this get touched
 TARGET_COVER = 0.45         # ...and are thinned down to this
 
 SCENES = [
-    ("coding",     "coding",      "gustavorezende-person-23598_512.gif"),
-    ("matrix",     "deep work",   "mxj_files-matrix-25406_512.gif"),
-    ("cleaning",   "tidying up",  "sadutta-sweep-6391_512.gif"),
-    ("headbanging","headbanging", "u_mey4kjj5ww-angry-2498_512.gif"),
-    ("tea",        "tea break",   "curiouskitty-hamster-27958_512.gif"),
+    ("headbanging", "headbanging", "u_mey4kjj5ww-angry-2498_512.gif"),
 ]
 
 # run-length alphabet: the digit/letter at index n means "repeat the next

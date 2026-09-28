@@ -125,8 +125,11 @@
   function go(si, announce) {
     state.scene = si; state.frame = 0; state.sceneT = 0; state.acc = 0;
     const s = SCENES[si];
-    say((announce ? "scene: " : "now: ") + s.label + "  ·  click for another");
-    host.setAttribute("aria-label", "ASCII animation: " + s.label + ". Click for a random scene.");
+    const more = SCENES.length > 1;
+    say((announce ? "scene: " : "now: ") + s.label +
+        (more ? "  ·  click for another" : "  ·  click to replay"));
+    host.setAttribute("aria-label", "ASCII animation: " + s.label +
+        (more ? ". Click for a random scene." : ". Click to replay."));
     draw();
   }
 
