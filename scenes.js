@@ -161,7 +161,10 @@
       state.acc = 0;
       state.frame = (state.frame + 1) % s.frames.length;
     }
-    if (!REDUCED && state.sceneT * 1000 > DWELL) go(pickRandom(), false);
+    // Only rotate when there is something to rotate to. With a single scene
+    // this would otherwise reset the frame to 0 every DWELL ms, so the
+    // animation would visibly jump instead of looping.
+    if (SCENES.length > 1 && !REDUCED && state.sceneT * 1000 > DWELL) go(pickRandom(), false);
     draw();
     requestAnimationFrame(frame);
   }
