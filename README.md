@@ -102,34 +102,28 @@ site/
   styles.css        all styling + design tokens
   data.js           window.KB — 102 knowledge-base chunks powering the RAG retrieval
   app.js            retrieval (TF-IDF cosine), chat UI, typewriter, scroll reveals
-  scenes.js         ASCII scene player: animates the baked GIF scene
-  assets/scenes.js  generated ASCII frame data (run-length encoded)
-  assets/avatar.jpg the site photo, shown as a photo
+  assets/avatar.jpg the site photo, shown in the hero
   api/chat.js       serverless endpoint: holds API keys server-side, calls Gemini/Groq
   .env.example      template of env var names
   .gitignore        keeps .env and secrets out of git
   README.md         this file
 
 tools/
-  bake_scenes.py    bakes the reference GIFs in image/ into assets/scenes.js
+  check.py          verification gate: chat guardrails, layout, a11y, palette
 ```
 
-One scene is configured — the headbanging GIF. The ASCII scene is
-**generated, not hand-written**. The source GIF is reference material and is
-kept outside this repo (in `image/` next to the site folder, or wherever
-`SCENE_GIFS` points). To swap it, edit the `SCENES` list in
-`tools/bake_scenes.py` and re-run. Adding a second row makes the player
-rotate between them at random again:
+## Verification
+
+Run this before every commit:
 
 ```bash
-python tools/bake_scenes.py     # rewrites assets/scenes.js
+python tools/check.py
 ```
 
-It crops each animation to its content, keys out the flat background,
-normalises tone once per scene so playback does not flicker, caps density on
-scenes that would otherwise render as a solid wall, and run-length encodes
-the result. The bake is deterministic: re-running it on unchanged input
-reproduces `assets/scenes.js` byte for byte.
+Covers chat scope guardrails, horizontal overflow at five breakpoints, the
+chat-input focus indicator (a real regression that shipped once), and asserts
+the palette token values so a design change cannot quietly alter them. Exits
+non-zero on failure.
 
 ---
 

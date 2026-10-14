@@ -120,7 +120,6 @@ function setFace(kind) {
     setTimeout(() => faceEl && faceEl.classList.remove("blink"), 340);
   }
   if (badgeEl) badgeEl.textContent = kind;
-  if (window.__asciiAct) window.__asciiAct(kind === "think" || kind === "speak" ? "thinking" : "coding");
 }
 setInterval(() => { if (badgeEl && badgeEl.textContent === "idle") setFace(Math.random() < 0.5 ? "idle" : "blink"); }, 3400);
 add("bot", "Hey! I'm Prakash's AI twin - a small RAG bot grounded on his career docs. Ask me about his experience, skills, projects or how to reach him.");
@@ -187,3 +186,23 @@ const statIO = new IntersectionObserver(es => {
   });
 }, { threshold: 0.35 });
 if (statEls.length) statIO.observe(statEls[0].closest(".stats-grid"));
+
+/* Boot overlay dismissal. This used to live in scenes.js, which owned it as
+   the last script on the page. scenes.js is gone, so it lives here now —
+   without it the "booting..." overlay would never fade and the site would
+   sit behind it permanently. */
+(function () {
+  const boot = document.getElementById("boot");
+  if (!boot) return;
+  const skip = () => {
+    boot.classList.add("done");
+    window.removeEventListener("wheel", skip);
+    window.removeEventListener("keydown", skip);
+    window.removeEventListener("pointerdown", skip);
+  };
+  window.addEventListener("wheel", skip, { once: true, passive: true });
+  window.addEventListener("keydown", skip, { once: true });
+  window.addEventListener("pointerdown", skip, { once: true });
+  setTimeout(skip, 1700);
+  window.__asciiSkipBoot = skip;
+})();

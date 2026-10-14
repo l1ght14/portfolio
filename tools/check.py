@@ -74,7 +74,7 @@ def main():
         with sync_playwright() as p:
             browser = p.chromium.launch()
 
-            print("\n[1/4] chat scope guardrails")
+            print("\n[1/5] chat scope guardrails")
             ctx = browser.new_context(viewport={"width": 1440, "height": 900})
             pg = ctx.new_page()
             errors = []
@@ -86,7 +86,7 @@ def main():
                 failures.append("chat page errors: %s" % errors[:3])
             ctx.close()
 
-            print("\n[2/4] layout across breakpoints")
+            print("\n[2/5] layout across breakpoints")
             for name, vp, motion in VIEWPORTS:
                 c = browser.new_context(viewport=vp, reduced_motion=motion)
                 page = c.new_page()
@@ -112,7 +112,7 @@ def main():
                     failures.append("viewport %s" % name)
                 c.close()
 
-            print("\n[3/4] keyboard focus on the chat input")
+            print("\n[3/5] keyboard focus on the chat input")
             # regression guard: styles.css once set input:focus{outline:none}
             ctx = browser.new_context(viewport={"width": 1440, "height": 900})
             pg = ctx.new_page()
@@ -132,7 +132,29 @@ def main():
                 failures.append("chat input focus indicator missing")
             ctx.close()
 
-            print("\n[4/4] palette and fonts unchanged")
+            print("\n[4/5] boot overlay actually dismisses")
+            # Regression guard: the boot overlay was dismissed by scenes.js.
+            # When scenes.js was deleted this had to move to app.js, and if
+            # it ever goes missing again the whole site sits behind the
+            # overlay with no visible error at all.
+            ctx = browser.new_context(viewport={"width": 1440, "height": 900})
+            pg = ctx.new_page()
+            pg.goto("http://127.0.0.1:%d/index.html" % PORT)
+            pg.wait_for_timeout(2600)
+            boot = pg.evaluate(
+                "(()=>{const b=document.getElementById('boot');if(!b) return {missing:true};"
+                "const s=getComputedStyle(b);"
+                "return {missing:false,hidden:s.visibility==='hidden',"
+                "done:b.classList.contains('done')};})()"
+            )
+            ok = (not boot["missing"]) and boot["hidden"] and boot["done"]
+            print("   %s | element=%s visibility-hidden=%s .done=%s"
+                  % ("PASS" if ok else "FAIL", not boot["missing"], boot.get("hidden"), boot.get("done")))
+            if not ok:
+                failures.append("boot overlay did not dismiss")
+            ctx.close()
+
+            print("\n[5/5] palette and fonts unchanged")
             ctx = browser.new_context(viewport={"width": 1440, "height": 900})
             pg = ctx.new_page()
             pg.goto("http://127.0.0.1:%d/index.html" % PORT)
