@@ -6,6 +6,18 @@
   --mono:'JetBrains Mono',ui-monospace,monospace;
   --sans:'Space Grotesk',system-ui,sans-serif;
   --maxw:1180px;
+
+  /* Derived surfaces. The five originals above all sat inside a
+     luminance band of 20-44 out of 255, i.e. one indistinguishable
+     dark plane, which is why the page read as flat. These are built
+     from the SAME three palette colours with color-mix so the palette
+     itself is untouched, but spread the surfaces across roughly
+     26-92 so there is actual value structure to read depth from. */
+  --s0:color-mix(in srgb, var(--bg) 88%, var(--deep));
+  --s1:color-mix(in srgb, var(--bg) 93%, var(--sky));
+  --s2:color-mix(in srgb, var(--panel) 74%, var(--sky));
+  --s3:color-mix(in srgb, var(--panel2) 66%, var(--sky));
+  --s-edge:rgba(176,237,249,.20);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:96px;overflow-x:hidden}
@@ -408,7 +420,74 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
   .ghost{transform:none!important}
 }
 
-/* ── liveliness ───────────────────────────────────────────────
+/* ── depth: value structure and section rhythm ──────────────────
+   Every section used to sit on the identical background, so scrolling
+   read as one continuous plane. Sections now alternate between two
+   surface values with a soft directional wash, which gives the page
+   cadence without introducing any new colour. */
+main > .block{position:relative;background:var(--s0)}
+main > .block:nth-of-type(even){
+  background:var(--s1);
+  box-shadow:inset 0 1px 0 rgba(176,237,249,.10),inset 0 -1px 0 rgba(176,237,249,.05);
+}
+main > .block:nth-of-type(odd)::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(70% 40% at 50% 0%,rgba(176,237,249,.055),transparent 72%);
+}
+main > .block > .wrap{position:relative;z-index:1}
+
+.stats{background:var(--s1)}
+.stats::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 100% at 50% 50%,rgba(255,254,21,.045),transparent 70%);
+}
+
+/* Cards sit on the lifted surfaces with a real edge and inner light. */
+.case,.card,.diagram,.skill-group,.cap,.repo,.repos,.bento > .card{
+  background:linear-gradient(180deg,var(--s3),var(--s2));
+  border-color:var(--s-edge);
+}
+.repos,.facts,.tl{background:linear-gradient(180deg,var(--s2),var(--s1))}
+.case,.card,.diagram{box-shadow:
+  inset 0 1px 0 rgba(232,240,242,.07),
+  0 22px 50px -34px rgba(0,0,0,.95);
+}
+
+/* Section heading words rise in sequence. Gated on the `js` class so a
+   JS failure can never leave every section heading invisible - without JS
+   the words simply render at full opacity. */
+.js .sec-head h2 .w{
+  display:inline-block;opacity:0;transform:translateY(.42em);
+  transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);
+  transition-delay:var(--wd,0s);
+}
+.js .sec-head h2.words-in .w{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .sec-head h2 .w{opacity:1!important;transform:none!important}
+}
+
+/* Browser chrome on the featured project cards. Makes a GitHub project
+   read as a shipped product rather than a link in a list. */
+.card{position:relative;padding-top:34px}
+.card::after{
+  content:"";position:absolute;inset:0 0 auto;height:34px;
+  border-bottom:1px solid var(--s-edge);
+  border-radius:18px 18px 0 0;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--s3) 70%,var(--sky)),var(--s3));
+}
+.card-dots{
+  position:absolute;z-index:2;top:0;left:0;height:34px;display:flex;align-items:center;gap:7px;
+  padding:0 15px;
+}
+.card-dots i{width:9px;height:9px;border-radius:50%;background:var(--dim);opacity:.55}
+.card-dots i:first-child{background:var(--acid);opacity:.85;box-shadow:0 0 8px rgba(255,254,21,.5)}
+.card-url{
+  position:absolute;z-index:2;top:0;right:0;height:34px;display:flex;align-items:center;
+  padding:0 16px;font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;color:var(--muted);
+  max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.card-visual{border-radius:0}
+@media (prefers-reduced-motion:reduce){.card-dots i:first-child{box-shadow:none}}
    Motion only. Every rule here is transform/opacity only, so it
    stays on the compositor, and every one is switched off under
    prefers-reduced-motion above. */

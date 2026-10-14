@@ -187,6 +187,43 @@ const statIO = new IntersectionObserver(es => {
 }, { threshold: 0.35 });
 if (statEls.length) statIO.observe(statEls[0].closest(".stats-grid"));
 
+/* Section heading word stagger. Splits the text nodes of each h2 into word
+   spans that rise in sequence. Only text nodes are split, so an <em> inside
+   stays one intact unit and keeps its accent colour. Wrapped in try/catch and
+   gated on a markup marker, because if this throws mid-way the heading must
+   still be readable - the fallback is fully visible text. */
+(function () {
+  const heads = document.querySelectorAll(".sec-head h2");
+  if (!heads.length) return;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  heads.forEach(h2 => {
+    h2.dataset.split = "1";
+    Array.from(h2.childNodes).forEach(node => {
+      if (node.nodeType !== 3) return;                 // leave <em> alone
+      const frag = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if (!part.trim()) { frag.appendChild(document.createTextNode(part)); return; }
+        const w = document.createElement("span");
+        w.className = "w";
+        w.textContent = part;
+        frag.appendChild(w);
+      });
+      try { node.parentNode.replaceChild(frag, node); } catch (e) { /* keep original */ }
+    });
+    // stagger: each word starts a beat later than the last
+    const ws = h2.querySelectorAll(".w");
+    ws.forEach((w, i) => w.style.setProperty("--wd", (i * 0.045).toFixed(3) + "s"));
+  });
+
+  if (reduced) { heads.forEach(h => h.classList.add("words-in")); return; }
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("words-in"); io.unobserve(e.target); }
+  }), { threshold: 0.35 });
+  heads.forEach(h => io.observe(h));
+})();
+
 /* Ghost keyword parallax. Each outlined word drifts a few pixels against
    the scroll so the section heads gain depth. Amplitude is deliberately
    tiny (12px total) - anything more reads as a gimmick rather than depth.

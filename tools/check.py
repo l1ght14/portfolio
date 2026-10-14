@@ -74,7 +74,7 @@ def main():
         with sync_playwright() as p:
             browser = p.chromium.launch()
 
-            print("\n[1/5] chat scope guardrails")
+            print("\n[1/7] chat scope guardrails")
             ctx = browser.new_context(viewport={"width": 1440, "height": 900})
             pg = ctx.new_page()
             errors = []
@@ -86,7 +86,7 @@ def main():
                 failures.append("chat page errors: %s" % errors[:3])
             ctx.close()
 
-            print("\n[2/5] layout across breakpoints")
+            print("\n[2/7] layout across breakpoints")
             for name, vp, motion in VIEWPORTS:
                 c = browser.new_context(viewport=vp, reduced_motion=motion)
                 page = c.new_page()
@@ -112,7 +112,7 @@ def main():
                     failures.append("viewport %s" % name)
                 c.close()
 
-            print("\n[3/5] keyboard focus on the chat input")
+            print("\n[3/7] keyboard focus on the chat input")
             # regression guard: styles.css once set input:focus{outline:none}
             ctx = browser.new_context(viewport={"width": 1440, "height": 900})
             pg = ctx.new_page()
@@ -132,7 +132,58 @@ def main():
                 failures.append("chat input focus indicator missing")
             ctx.close()
 
-            print("\n[4/5] boot overlay actually dismisses")
+            print("\n[4/7] every section heading is visible after scroll")
+            # Regression guard: the word-stagger hides heading words via CSS.
+            # It is gated on the `js` class so a script failure cannot blank
+            # the page, and this asserts the real outcome rather than the
+            # class being present.
+            ctx = browser.new_context(viewport={"width": 1440, "height": 900})
+            pg = ctx.new_page()
+            pg.goto("http://127.0.0.1:%d/index.html" % PORT)
+            pg.wait_for_timeout(1700)
+            # Walk each heading into view one at a time, with a pause between.
+            # Centring the *section* is not equivalent (tall sections put
+            # their own heading above the fold), and scrolling all of them
+            # synchronously only ever leaves the last one on screen, so the
+            # IntersectionObserver never sees the others.
+            for i in range(pg.evaluate("document.querySelectorAll('.sec-head h2').length")):
+                pg.evaluate("i => document.querySelectorAll('.sec-head h2')[i].scrollIntoView({block:'center'})", i)
+                pg.wait_for_timeout(420)
+            # settle: the last heading is measured while its words are still
+            # animating (0.55s transition + up to ~0.2s stagger delay)
+            pg.wait_for_timeout(1100)
+            hidden = pg.evaluate(
+                """(()=>{let bad=[];
+                 document.querySelectorAll('.sec-head h2').forEach(h=>{
+                   h.querySelectorAll('.w').forEach(w=>{
+                     const s=getComputedStyle(w);
+                     if (parseFloat(s.opacity)<0.9) bad.push(h.textContent.trim().slice(0,28));});
+                 });
+                 return bad;})()"""
+            )
+            ok = not hidden
+            print("   %s | headings with faded words: %d%s"
+                  % ("PASS" if ok else "FAIL", len(hidden), "" if ok else " -> %s" % hidden[:3]))
+            if not ok:
+                failures.append("section headings did not become visible")
+            ctx.close()
+
+            print("\n[5/7] no-JS fallback keeps headings readable")
+            ctx = browser.new_context(viewport={"width": 1440, "height": 900},
+                                      java_script_enabled=False)
+            pg = ctx.new_page()
+            pg.goto("http://127.0.0.1:%d/index.html" % PORT)
+            pg.wait_for_timeout(900)
+            visible = pg.evaluate_handle if False else None
+            txt = pg.locator("#projects h2").inner_text()
+            ok = "Things I built" in txt
+            print("   %s | projects heading text with JS disabled: %r"
+                  % ("PASS" if ok else "FAIL", txt[:44]))
+            if not ok:
+                failures.append("headings unreadable without JS")
+            ctx.close()
+
+            print("\n[7/7] boot overlay actually dismisses")
             # Regression guard: the boot overlay was dismissed by scenes.js.
             # When scenes.js was deleted this had to move to app.js, and if
             # it ever goes missing again the whole site sits behind the
@@ -154,7 +205,7 @@ def main():
                 failures.append("boot overlay did not dismiss")
             ctx.close()
 
-            print("\n[5/5] palette and fonts unchanged")
+            print("\n[6/7] palette and fonts unchanged")
             ctx = browser.new_context(viewport={"width": 1440, "height": 900})
             pg = ctx.new_page()
             pg.goto("http://127.0.0.1:%d/index.html" % PORT)
