@@ -187,6 +187,38 @@ const statIO = new IntersectionObserver(es => {
 }, { threshold: 0.35 });
 if (statEls.length) statIO.observe(statEls[0].closest(".stats-grid"));
 
+/* Ghost keyword parallax. Each outlined word drifts a few pixels against
+   the scroll so the section heads gain depth. Amplitude is deliberately
+   tiny (12px total) - anything more reads as a gimmick rather than depth.
+   transform only, rAF-throttled, and off under prefers-reduced-motion. */
+(function () {
+  const ghosts = Array.from(document.querySelectorAll(".sec-head .ghost"));
+  if (!ghosts.length) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let ticking = false;
+  const paint = () => {
+    const vh = window.innerHeight;
+    ghosts.forEach(g => {
+      const host = g.closest(".sec-head");
+      if (!host) return;
+      const r = host.getBoundingClientRect();
+      // -1 above the fold centre, +1 below it
+      const p = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
+      g.style.transform = "translateY(calc(-54% + " + (p * 12).toFixed(2) + "px))";
+    });
+    ticking = false;
+  };
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(paint);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  paint();
+})();
+
 /* Boot overlay dismissal. This used to live in scenes.js, which owned it as
    the last script on the page. scenes.js is gone, so it lives here now —
    without it the "booting..." overlay would never fade and the site would

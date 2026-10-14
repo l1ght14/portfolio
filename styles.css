@@ -403,4 +403,59 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
 @media (prefers-reduced-motion:reduce){
   .case,.card,.diagram,.repo,.btn{transition:none}
   .hero::before,.hero::after{display:none}
+  .grain{display:none}
+  .chat::after{display:none}
+  .ghost{transform:none!important}
 }
+
+/* ── liveliness ───────────────────────────────────────────────
+   Motion only. Every rule here is transform/opacity only, so it
+   stays on the compositor, and every one is switched off under
+   prefers-reduced-motion above. */
+
+/* Drifting aurora. transform-only so it never triggers layout. */
+@keyframes driftA{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(5vw,3.5vh,0) scale(1.14)}
+}
+@keyframes driftB{
+  0%,100%{transform:translate3d(0,0,0) scale(1.09)}
+  50%{transform:translate3d(-4.5vw,4vh,0) scale(1)}
+}
+.hero::before{animation:driftA 28s ease-in-out infinite}
+.hero::after{animation:driftB 34s ease-in-out infinite}
+
+/* Film grain. A fixed overlay at very low opacity gives the flat navy
+   some tooth, so depth reads as material rather than flat paint. */
+.grain{
+  position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.038;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+  background-size:180px 180px;
+}
+
+/* Gradient border on the chat panel - the one element a recruiter is
+   meant to touch. Deliberately STATIC: animating `transform` on a
+   mask-composited pseudo-element makes Chromium lose the clip, and the
+   gradient then sweeps across the panel as a diagonal line instead of
+   hugging its edge. Only `opacity` is animated here, which is safe. */
+@keyframes breathe{0%,100%{opacity:.62}50%{opacity:1}}
+.chat{position:relative}
+.chat::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(155deg,
+    rgba(255,254,21,.85) 0%, rgba(176,237,249,.42) 26%,
+    rgba(176,237,249,.12) 48%, rgba(176,237,249,0) 72%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  animation:breathe 6.5s ease-in-out infinite;
+}
+
+/* Card artwork breathes very slightly on hover. */
+.card-visual{overflow:hidden;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.card:hover .card-visual{transform:scale(1.035)}
+
+/* Ghost keywords drift against the scroll for parallax depth. Amplitude is
+   set by --gp in app.js and is deliberately tiny. */
+.sec-head .ghost{will-change:transform}
