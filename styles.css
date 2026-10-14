@@ -344,3 +344,94 @@ footer{margin-top:96px;border-top:1px solid var(--line);background:var(--deep);p
 .rn{font-family:var(--mono);font-size:.72rem;color:var(--acid);word-break:break-all}
 .rd{font-size:.75rem;color:var(--muted);line-height:1.45}
 .repo-note{margin-top:20px;font-size:.63rem;color:var(--dim);letter-spacing:.05em}
+
+/* ═══════════════════════════════════════════════════════════════
+   design layer — atmosphere, depth and display type.
+   Palette is unchanged: only --deep, --acid, --sky.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Aurora: two soft blooms behind the hero. Fixed, so it costs no layout
+   and does not scroll, and it is behind everything at pointer-events:none. */
+.hero::before,.hero::after{
+  content:"";position:absolute;z-index:0;pointer-events:none;border-radius:50%;
+  filter:blur(10px);
+}
+.hero::before{
+  left:-14vw;top:-22vh;width:64vw;height:64vw;
+  background:radial-gradient(circle,rgba(255,254,21,.085),transparent 62%);
+}
+.hero::after{
+  right:-16vw;bottom:-26vh;width:58vw;height:58vw;
+  background:radial-gradient(circle,rgba(176,237,249,.10),transparent 62%);
+}
+
+/* Hero identity row: face + role line, so the name is not the only thing
+   a recruiter meets. */
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.hero-photo{
+  width:92px;height:92px;flex:none;border-radius:50%;object-fit:cover;
+  object-position:center 20%;border:1px solid rgba(176,237,249,.30);
+  box-shadow:0 0 0 4px rgba(176,237,249,.05),0 14px 34px -14px rgba(0,0,0,.9);
+  filter:saturate(1.04) contrast(1.02);
+}
+.hero-top .tag{margin-bottom:0}
+@media (max-width:620px){.hero-photo{width:68px;height:68px}}
+
+/* Display type. The acid surname is the identity anchor, so it keeps its
+   flat colour and gains a glow rather than becoming a gradient. */
+.hero h1{font-size:clamp(3.1rem,6.1vw,5.4rem);line-height:.92;letter-spacing:-.032em}
+.hero h1 .hl{text-shadow:0 0 42px rgba(255,254,21,.30)}
+.hero-cta{margin:30px 0 20px}
+
+/* Ghost keyword behind every section heading. One short word, never the
+   full sentence - a long heading at this size overflows the viewport. */
+.sec-head{position:relative;overflow:hidden}
+.sec-head .ghost{
+  position:absolute;left:-8px;top:50%;transform:translateY(-54%);z-index:0;
+  font-family:var(--sans);font-weight:700;font-size:clamp(3.4rem,8.4vw,7.4rem);
+  line-height:1;letter-spacing:-.045em;white-space:nowrap;pointer-events:none;
+  user-select:none;color:transparent;-webkit-text-stroke:1px rgba(176,237,249,.085);
+}
+.sec-head>div{position:relative;z-index:1}
+.sec-head>p{position:relative;z-index:1}
+@media (max-width:860px){.sec-head .ghost{font-size:3rem;opacity:.7}}
+
+/* Accent rule as a section marker */
+.sec-tag{display:flex;align-items:center;gap:12px}
+.sec-tag::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,var(--acid),transparent)}
+
+/* Depth. Cards get a hairline top-light and lift on hover so the page
+   stops reading as one flat field of identical boxes. */
+.case,.card,.diagram,.repo{
+  box-shadow:0 18px 44px -34px rgba(0,0,0,.92);
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.case::before,.card::before,.diagram::before{
+  content:"";position:absolute;inset:0 0 auto;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(176,237,249,.26),transparent);
+}
+.case:hover,.card:hover,.diagram:hover{
+  border-color:rgba(255,254,21,.34);
+  box-shadow:0 26px 58px -30px rgba(0,0,0,.95),0 0 0 1px rgba(255,254,21,.07);
+}
+.repo:hover{box-shadow:0 14px 32px -22px rgba(0,0,0,.9)}
+
+/* Chat panel: lift off the page */
+.chat{
+  border-color:rgba(176,237,249,.22);
+  box-shadow:0 34px 80px -40px rgba(0,0,0,.95),inset 0 1px 0 rgba(176,237,249,.08);
+}
+
+/* CTAs: glow on hover instead of a flat fill change */
+.btn{transition:transform .22s,border-color .22s,box-shadow .22s,background .22s}
+.btn:hover{
+  border-color:var(--acid);
+  box-shadow:0 0 0 1px rgba(255,254,21,.30),0 0 28px -8px rgba(255,254,21,.55);
+}
+.btn-solid{box-shadow:0 0 34px -12px rgba(255,254,21,.7)}
+.btn-solid:hover{box-shadow:0 0 46px -10px rgba(255,254,21,.95)}
+
+@media (prefers-reduced-motion:reduce){
+  .case,.card,.diagram,.repo,.btn{transition:none}
+  .hero::before,.hero::after{display:none}
+}
