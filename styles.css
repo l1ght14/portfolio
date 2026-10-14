@@ -1,22 +1,27 @@
 ﻿:root{
-  --bg:#0C1E29;--deep:#091621;--panel:#0F2431;--panel2:#13293A;--panel3:#17303F;
+  /* Background is a near-neutral charcoal. It was #0C1E29, a blue-teal at
+     54% saturation, which read as a muddy wash and made the acid accent
+     look duller than it actually is. Neutral black lets #FFFE15 and
+     #B0EDF9 carry all the colour, which is what the theme always wanted. */
+  --bg:#0D0F12;--deep:#08090B;--panel:#14171B;--panel2:#1A1E23;--panel3:#22272D;
   --ink:#E8F0F2;--muted:#8FA6B3;--dim:#6C8494;
+  /* Accents are locked and unchanged. */
   --acid:#FFFE15;--sky:#B0EDF9;
   --line:rgba(176,237,249,.14);--line2:rgba(176,237,249,.28);
   --mono:'JetBrains Mono',ui-monospace,monospace;
   --sans:'Space Grotesk',system-ui,sans-serif;
   --maxw:1180px;
 
-  /* Derived surfaces. The five originals above all sat inside a
-     luminance band of 20-44 out of 255, i.e. one indistinguishable
-     dark plane, which is why the page read as flat. These are built
-     from the SAME three palette colours with color-mix so the palette
-     itself is untouched, but spread the surfaces across roughly
-     26-92 so there is actual value structure to read depth from. */
+  /* Derived surfaces, built from the palette with color-mix.
+     These mix toward INK, not SKY. An earlier version mixed in SKY, which
+     is 86% saturated cyan, and produced surfaces like #395865 - pale
+     blue-grey blocks at luminance 82. That was the "weird blue".
+     Mixing toward near-neutral INK keeps the value spread (roughly 26-70,
+     against the original 20-44) without the cyan cast. */
   --s0:color-mix(in srgb, var(--bg) 88%, var(--deep));
-  --s1:color-mix(in srgb, var(--bg) 93%, var(--sky));
-  --s2:color-mix(in srgb, var(--panel) 74%, var(--sky));
-  --s3:color-mix(in srgb, var(--panel2) 66%, var(--sky));
+  --s1:color-mix(in srgb, var(--bg) 96%, var(--ink));
+  --s2:color-mix(in srgb, var(--panel) 90%, var(--ink));
+  --s3:color-mix(in srgb, var(--panel2) 86%, var(--ink));
   --s-edge:rgba(176,237,249,.20);
 }
 *{box-sizing:border-box;margin:0;padding:0}

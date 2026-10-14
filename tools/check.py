@@ -217,15 +217,40 @@ def main():
                 "s.getPropertyValue('--sky').trim(),s.getPropertyValue('--sans').trim(),"
                 "s.getPropertyValue('--mono').trim()];})()"
             )
-            # --bg and --deep are two distinct pre-existing tokens. Assert the
-            # values actually in the stylesheet so a palette edit gets caught.
-            expected = ["#0C1E29", "#091621", "#FFFE15", "#B0EDF9"]
-            same = all(t.replace(" ", "").upper().startswith(e.upper())
-                       for t, e in zip(tokens[:4], expected))
-            print("   %s | bg=%s deep=%s acid=%s sky=%s" % ("PASS" if same else "FAIL", *tokens[:4]))
-            print("        sans=%s mono=%s" % (tokens[4][:34], tokens[5][:26]))
+            # Only the accents are locked. The background was deliberately
+            # moved off blue-teal to a neutral charcoal at the owner's
+            # request, so bg/deep are reported, not pinned.
+            locked = {"acid": "#FFFE15", "sky": "#B0EDF9"}
+            vals = {"bg": tokens[0], "deep": tokens[1], "acid": tokens[2], "sky": tokens[3]}
+            same = all(v.replace(" ", "").upper().startswith(e.upper())
+                       for k, e in locked.items() for v in [vals[k]])
+            print("   %s | locked accents: acid=%s sky=%s"
+                  % ("PASS" if same else "FAIL", vals["acid"], vals["sky"]))
+            print("        background   : bg=%s deep=%s" % (vals["bg"], vals["deep"]))
+            print("        fonts        : sans=%s mono=%s" % (tokens[4][:30], tokens[5][:22]))
             if not same:
-                failures.append("palette tokens changed")
+                failures.append("locked accent colours changed")
+
+            # contrast of body text on the new background
+            contrast = pg.evaluate(
+                """(()=>{
+                     const px=s=>getComputedStyle(document.querySelector(s));
+                     const L=c=>{const m=c.match(/\\d+(\\.\\d+)?/g).map(Number);
+                       const a=m.slice(0,3).map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4});
+                       return .2126*a[0]+.7152*a[1]+.0722*a[2];};
+                     const bg=L(px('body').backgroundColor);
+                     const fg=L(px('.lede').color);
+                     const ratio=(Math.max(bg,fg)+.05)/(Math.min(bg,fg)+.05);
+                     return {ratio:+ratio.toFixed(2),
+                             bodyBg:px('body').backgroundColor,
+                             fg:px('.lede').color};})()"""
+            )
+            okc = contrast["ratio"] >= 4.5
+            print("   %s | lede text contrast on background: %.2f:1 (needs 4.5)"
+                  % ("PASS" if okc else "FAIL", contrast["ratio"]))
+            print("        body bg=%s  text=%s" % (contrast["bodyBg"], contrast["fg"]))
+            if not okc:
+                failures.append("body text contrast below WCAG AA")
             ctx.close()
 
             browser.close()
