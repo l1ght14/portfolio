@@ -251,6 +251,45 @@ def main():
             print("        body bg=%s  text=%s" % (contrast["bodyBg"], contrast["fg"]))
             if not okc:
                 failures.append("body text contrast below WCAG AA")
+
+            # No blue-cast surfaces. Four rules (.nav, .chat, .chat-log,
+            # .chat-input) once hardcoded the old blue literals and bypassed
+            # the tokens, so the hero kept a navy nav bar and a blue chat
+            # panel long after the background went neutral. Measure the actual
+            # hue/saturation rather than trusting the source.
+            cast = pg.evaluate(
+                """(()=>{
+                     const out={};
+                     ['.nav','.chat','.chat-log','.chat-input'].forEach(sel=>{
+                       const el=document.querySelector(sel); if(!el) return;
+                       const c=getComputedStyle(el).backgroundColor;
+                       const m=c.match(/[\\d.]+/g); if(!m) return;
+                       let [r,g,b]=m.map(Number);
+                       // Chrome serialises color-mix() as color(srgb r g b / a)
+                       // with 0-1 components, but plain colours as rgb() with
+                       // 0-255. Normalise, or every channel reads as ~2.
+                       if (/^color\\(/.test(c)) { r*=255; g*=255; b*=255; }
+                       const a=m.length>3?Number(m[3]):1;
+                       // flatten onto the page background before judging hue
+                       r=r*a+13*(1-a); g=g*a+15*(1-a); b=b*a+18*(1-a);
+                       const mx=Math.max(r,g,b), mn=Math.min(r,g,b);
+                       const sat = mx ? (mx-mn)/mx : 0;
+                       // is blue dominant? needs B clearly above R
+                       out[sel]={sat:+sat.toFixed(3), blueBias:+(b-r).toFixed(1),
+                                 rgb:[Math.round(r),Math.round(g),Math.round(b)]};
+                     });
+                     return out;})()"""
+            )
+            bad_cast = {k: v for k, v in cast.items()
+                        if v["sat"] > 0.22 and v["blueBias"] > 10}
+            for sel in (".nav", ".chat", ".chat-log", ".chat-input"):
+                v = cast.get(sel)
+                mark = "FAIL" if sel in bad_cast else "PASS"
+                if v:
+                    print("   %s | %-12s rgb=%s sat=%.3f blue-bias=%+.0f"
+                          % (mark, sel, v["rgb"], v["sat"], v["blueBias"]))
+            if bad_cast:
+                failures.append("blue-cast surfaces: %s" % list(bad_cast))
             ctx.close()
 
             browser.close()
